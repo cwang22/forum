@@ -21,7 +21,7 @@
     </script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="margin-bottom: 40px;">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">

@@ -21,6 +21,20 @@
                 </div>
             </div>
             @endforeach
+            
+            @if(auth()->check())
+                <h4>New Reply</h4>
+                <form class="form" action="{{ $thread->path() . '/replies' }}" method="POST">
+                    {{ csrf_field() }}
+
+                    <div class="form-group">
+                        <textarea name="body" class="form-control" cols="30" rows="10" placeholder="do you have something to say?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="post" class="btn pull-right">
+                    </div>
+                </form>
+            @endif
         </div>
     </div>
 </div>
