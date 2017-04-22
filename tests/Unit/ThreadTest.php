@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Reply;
 use App\Thread;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,12 +13,6 @@ class ThreadTest extends TestCase
     /** @var  Thread */
     private $thread;
     use DatabaseMigrations;
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->thread = factory(Thread::class)->create();
-    }
 
     /** @test */
     public function it_has_a_owner()
@@ -42,5 +35,11 @@ class ThreadTest extends TestCase
             'user_id' => 1
         ]);
         $this->assertCount(1, $this->thread->replies);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->thread = create(Thread::class);
     }
 }

@@ -22,9 +22,9 @@ class ParticipateInForumTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_reply_to_a_thread()
     {
-        $this->be(factory(User::class)->create());
-        $thread = factory(Thread::class)->create();
-        $reply = factory(Reply::class)->make();
+        $this->signIn();
+        $thread = create(Thread::class);
+        $reply = make(Reply::class);
         $this->post($thread->path() . '/replies', $reply->toArray());
 
         $this->get($thread->path())->assertSee($reply->body);
