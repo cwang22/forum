@@ -11,7 +11,13 @@ class Thread extends Model
         return '/thread/' . $this->id;
     }
 
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }
