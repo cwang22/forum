@@ -29,14 +29,14 @@ class ReadThreadTest extends TestCase
     /** @test */
     public function a_user_can_browse_a_thread()
     {
-        $this->get('/threads/' . $this->thread->id)->assertSee($this->thread->title);
+        $this->get($this->thread->path())->assertSee($this->thread->title);
     }
 
     /** @test */
     public function a_thread_can_have_replies()
     {
         $reply = create(Reply::class, ['thread_id' => $this->thread->id]);
-        $this->get('/threads/' . $this->thread->id)
+        $this->get($this->thread->path())
             ->assertSee($reply->body);
     }
 }

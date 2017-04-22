@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Reply;
 use App\Thread;
-use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -13,10 +12,11 @@ class ParticipateInForumTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function unauthenticated_users_may_not_add_replies()
+    function unauthenticated_users_cannot_add_replies()
     {
-        $this->expectException('Illuminate\Auth\AuthenticationException');
-        $this->post('/threads/1/replies', []);
+        $this->withExceptionHandling();
+        $this->post('/threads/some-slug/1/replies', [])
+            ->assertRedirect('/login');
     }
 
     /** @test */
@@ -26,7 +26,6 @@ class ParticipateInForumTest extends TestCase
         $thread = create(Thread::class);
         $reply = make(Reply::class);
         $this->post($thread->path() . '/replies', $reply->toArray());
-
         $this->get($thread->path())->assertSee($reply->body);
     }
 }
