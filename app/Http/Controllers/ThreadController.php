@@ -9,7 +9,7 @@ class ThreadController extends Controller
 {
     function __construct()
     {
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
 
@@ -31,7 +31,7 @@ class ThreadController extends Controller
      */
     public function create()
     {
-        //
+        return view('threads.create');
     }
 
     /**
@@ -40,15 +40,15 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        Thread::create([
+        $thread = Thread::create([
             'user_id' => auth()->id(),
             'title' => request('title'),
             'body' => request('body')
         ]);
 
-        return redirect('/threads');
+        return redirect($thread->path());
     }
 
     /**
