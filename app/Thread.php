@@ -8,7 +8,7 @@ class Thread extends Model
 {
     public function path()
     {
-        return '/thread/' . $this->id;
+        return '/threads/' . $this->id;
     }
 
     public function owner()
@@ -19,5 +19,11 @@ class Thread extends Model
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+
+    public function addReply($reply)
+    {
+        return $this->replies()->create($reply);
     }
 }
