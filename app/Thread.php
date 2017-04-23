@@ -6,31 +6,56 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    protected $fillable = ['user_id', 'channel_id', 'title', 'body'];
+    protected $guarded = [];
 
+
+    /**
+     * a thread belongs to a user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * a thread belongs to a channel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel()
     {
         return $this->belongsTo(Channel::class);
     }
 
+    /**
+     * a thread consists of replies
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function replies()
     {
         return $this->hasMany(Reply::class);
     }
 
+    /**
+     *  Get a string path for the thread
+     *
+     * @return string
+     */
     public function path()
     {
         return "threads/{$this->channel->slug}/$this->id";
     }
 
-
+    /**
+     * Add a reply to the thread
+     *
+     * @param $reply
+     */
     public function addReply($reply)
     {
-        return $this->replies()->create($reply);
+        $this->replies()->create($reply);
     }
 }
