@@ -21,6 +21,7 @@ abstract class TestCase extends BaseTestCase
     {
         $user = $user ? $user : create(User::class);
         $this->actingAs($user);
+        return $this;
     }
 
     // Hat tip, @adamwathan.
