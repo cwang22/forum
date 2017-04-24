@@ -11,17 +11,18 @@ class ThreadFilters extends Filters
      *
      * @var array
      */
-    protected $filters = ['by'];
+    protected $filters = ['by', 'popular'];
 
-    /**
-     * Filter query by username
-     *
-     * @param $username
-     */
     public function by($username)
     {
         $user = User::where('name', $username)->firstOrFail();
-        $this->builder->where('user_id', $user->id);
+        return $this->builder->where('user_id', $user->id);
+    }
+
+    public function popular()
+    {
+        $this->builder->getQuery()->orders = [];
+        return $this->builder->orderBy('replies_count', 'desc');
     }
 
 }

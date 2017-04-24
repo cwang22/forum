@@ -23,28 +23,34 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Thread::class, function (Faker\Generator $faker) {
+$factory->define(App\Thread::class, function ($faker) {
     return [
-        'user_id' => factory(\App\User::class)->create()->id,
-        'channel_id' => factory(\App\Channel::class)->create()->id,
+        'user_id' => function () {
+            return factory('App\User')->create()->id;
+        },
+        'channel_id' => function () {
+            return factory('App\Channel')->create()->id;
+        },
         'title' => $faker->sentence,
-        'body' => $faker->paragraph
+        'body'  => $faker->paragraph
     ];
-
 });
 
-$factory->define(\App\Reply::class, function(Faker\Generator $faker) {
-   return [
-       'user_id' => factory(\App\User::class)->create()->id,
-       'thread_id' => factory(\App\Thread::class)->create()->id,
-       'body' => $faker->paragraph
-   ];
-});
-
-$factory->define(\App\Channel::class, function (Faker\Generator $faker) {
-    $name =$faker->word;
+$factory->define(App\Channel::class, function ($faker) {
+    $name = $faker->word;
     return [
         'name' => $name,
         'slug' => $name
+    ];
+});
+$factory->define(App\Reply::class, function ($faker) {
+    return [
+        'thread_id' => function () {
+            return factory('App\Thread')->create()->id;
+        },
+        'user_id' => function () {
+            return factory('App\User')->create()->id;
+        },
+        'body'  => $faker->paragraph
     ];
 });
