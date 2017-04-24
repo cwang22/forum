@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Channel;
 use App\Filters\ThreadFilters;
 use App\Thread;
-use App\User;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -27,7 +26,7 @@ class ThreadController extends Controller
     {
         $threads = Thread::latest()->filter($filters);
 
-        if($channel->exists) {
+        if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
 
@@ -73,12 +72,16 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param string $channelName
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
      */
     public function show($channelName, Thread $thread)
     {
-        return view('threads.show', compact('thread'));
+        return view('threads.show', [
+            'thread' => $thread,
+            'replies' => $thread->replies()->paginate(5)
+        ]);
     }
 
     /**

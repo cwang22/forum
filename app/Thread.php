@@ -9,6 +9,14 @@ class Thread extends Model
 {
     protected $guarded = [];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('replyCount', function($builder){
+            $builder->withCount('replies');
+        });
+    }
+
 
     /**
      * a thread belongs to a user
@@ -47,7 +55,7 @@ class Thread extends Model
      */
     public function path()
     {
-        return "threads/{$this->channel->slug}/$this->id";
+        return "/threads/{$this->channel->slug}/$this->id";
     }
 
     /**
