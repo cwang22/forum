@@ -27,4 +27,22 @@ class Reply extends Model
     {
         return $this->belongsTo(Thread::class);
     }
+
+    /**
+     * a reply has many favorites
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorite');
+    }
+
+    public function favorite()
+    {
+        if(!$this->favorites()->exists())
+        $this->favorites()->create([
+            'user_id' => auth()->id()
+        ]);
+    }
 }
