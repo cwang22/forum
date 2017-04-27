@@ -3,16 +3,29 @@
 namespace App;
 
 use app\Filters\ThreadFilters;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+    /**
+     * mass assignment protections
+     *
+     * @var array
+     */
     protected $guarded = [];
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['owner', 'channel'];
 
     public static function boot()
     {
         parent::boot();
-        static::addGlobalScope('replyCount', function($builder){
+        static::addGlobalScope('replyCount', function ($builder) {
             $builder->withCount('replies');
         });
     }
@@ -68,6 +81,12 @@ class Thread extends Model
         $this->replies()->create($reply);
     }
 
+    /**
+     * Apply all relevant thread filters.
+     * @param Builder $query
+     * @param ThreadFilters $filters
+     * @return Builder
+     */
     public function scopeFilter($query, ThreadFilters $filters)
     {
         return $filters->apply($query);

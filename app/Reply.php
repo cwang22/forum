@@ -6,7 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
+    /**
+     * mass assignment protections
+     *
+     * @var array
+     */
     protected $guarded = [];
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['owner', 'favorites'];
+
+    use Favoritable;
 
     /**
      * a reply belongs to a user
@@ -26,28 +40,5 @@ class Reply extends Model
     public function thread()
     {
         return $this->belongsTo(Thread::class);
-    }
-
-    /**
-     * a reply has many favorites
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function favorites()
-    {
-        return $this->morphMany(Favorite::class, 'favorite');
-    }
-
-    public function favorite()
-    {
-        if(!$this->favorites()->exists())
-        $this->favorites()->create([
-            'user_id' => auth()->id()
-        ]);
-    }
-
-    public function isFavorited()
-    {
-        return $this->favorites()->where('user_id', auth()->id())->exists();
     }
 }
