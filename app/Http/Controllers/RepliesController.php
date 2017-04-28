@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 
-class ReplyController extends Controller
+class RepliesController extends Controller
 {
     function __construct()
     {

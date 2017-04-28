@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{$thread->title}}</div>
+                    <div class="panel-heading">
+                        <a href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->name }}</a> posted:
+                        {{ $thread->title }}
+                    </div>
                     <div class="panel-body">
                         <p>{{$thread->body}}</p>
                     </div>
