@@ -8,7 +8,7 @@
         </small>
     </h1>
 
-    @foreach ($threads as $thread)
+    @forelse ($threads as $thread)
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="level">
@@ -25,7 +25,9 @@
                 {{ $thread->body }}
             </div>
         </div>
-    @endforeach
+    @empty
+        <p>There are no relevant results at this time.</p>
+    @endforelse
 
 
 </div>

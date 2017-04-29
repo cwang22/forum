@@ -57,10 +57,23 @@ class CreateThreadTest extends TestCase
     }
 
     /** @test */
+    public function unauthenticated_user_cannot_delete_thread()
+    {
+        $this->withExceptionHandling();
+        $thread = create(Thread::class);
+        $this->delete($thread->path())
+            ->assertRedirect('/login');
+
+        $this->signIn();
+        $this->delete($thread->path())
+            ->assertStatus(403);
+    }
+
+    /** @test */
     public function a_thread_can_be_deleted()
     {
         $this->signIn();
-        $thread = create(Thread::class);
+        $thread = create(Thread::class, ['user_id' => auth()->id()]);
         $reply = create(Reply::class, ['thread_id' => $thread->id]);
 
         $this->delete($thread->path());
