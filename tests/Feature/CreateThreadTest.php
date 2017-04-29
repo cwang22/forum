@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
 use App\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -37,25 +38,41 @@ class CreateThreadTest extends TestCase
     /** @test */
     public function a_thread_requires_a_title()
     {
-        $this->publicThread(['title' => null])
+        $this->publishThread(['title' => null])
             ->assertSessionHasErrors('title');
     }
 
     /** @test */
     public function a_thread_requires_a_body()
     {
-        $this->publicThread(['body' => null])
+        $this->publishThread(['body' => null])
             ->assertSessionHasErrors('body');
     }
 
     /** @test */
     public function a_thread_requires_a_valid_channel()
     {
-        $this->publicThread(['channel_id' => 3])
+        $this->publishThread(['channel_id' => 3])
             ->assertSessionHasErrors('channel_id');
     }
 
-    private function publicThread($overrides = [])
+    /** @test */
+    public function a_thread_can_be_deleted()
+    {
+        $this->signIn();
+        $thread = create(Thread::class);
+        $reply = create(Reply::class, ['thread_id' => $thread->id]);
+
+        $this->delete($thread->path());
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+    }
+
+    /**
+     * @param array $overrides
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    private function publishThread($overrides = [])
     {
         $this->withExceptionHandling()->signIn();
         $thread = make(Thread::class, $overrides);
