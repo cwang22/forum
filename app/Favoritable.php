@@ -7,16 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 trait Favoritable
 {
     /**
-     * a reply has many favorites
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function favorites()
-    {
-        return $this->morphMany(Favorite::class, 'favorite');
-    }
-
-    /**
      * Determine if the reply has been favorited by current user
      * @return bool
      */
@@ -46,5 +36,15 @@ trait Favoritable
         if (!$this->favorites()->where($attributes)->exists()) {
             return $this->favorites()->create($attributes);
         }
+    }
+
+    /**
+     * a reply has many favorites
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favorite');
     }
 }

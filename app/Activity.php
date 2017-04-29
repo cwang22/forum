@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 class Activity extends Model
 {
@@ -18,7 +17,7 @@ class Activity extends Model
      * Fetch an activity feed for the given user.
      *
      * @param  User $user
-     * @param  int  $take
+     * @param  int $take
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function feed(User $user, $take = 50)

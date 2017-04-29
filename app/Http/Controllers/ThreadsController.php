@@ -14,7 +14,6 @@ class ThreadsController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -82,29 +81,6 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Thread $thread)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Thread $thread)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param Channel $channel
@@ -116,8 +92,8 @@ class ThreadsController extends Controller
         $this->authorize('update', $thread);
         $thread->delete();
 
-        if(request()->wantsJson()) {
-            return response([],204);
+        if (request()->wantsJson()) {
+            return response([], 204);
         }
 
         return redirect('/threads');

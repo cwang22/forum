@@ -5,7 +5,6 @@ namespace App;
 use app\Filters\ThreadFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Tests\Feature\ActivityTest;
 
 class Thread extends Model
 {
@@ -31,8 +30,8 @@ class Thread extends Model
             $builder->withCount('replies');
         });
 
-        static::deleting(function(Thread $thread) {
-           $thread->replies->each->delete();
+        static::deleting(function (Thread $thread) {
+            $thread->replies->each->delete();
         });
     }
 
@@ -58,16 +57,6 @@ class Thread extends Model
     }
 
     /**
-     * a thread consists of replies
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
-    }
-
-    /**
      *  Get a string path for the thread
      *
      * @return string
@@ -85,6 +74,16 @@ class Thread extends Model
     public function addReply($reply)
     {
         $this->replies()->create($reply);
+    }
+
+    /**
+     * a thread consists of replies
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     /**
