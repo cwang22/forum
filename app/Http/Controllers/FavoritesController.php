@@ -12,7 +12,6 @@ class FavoritesController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
