@@ -10,7 +10,18 @@ class ProfilesController extends Controller
     {
         return view('profiles.show')->with([
             'profileUser' => $user,
-            'threads' => $user->threads
+            'activities' => $this->getActivities($user)
         ]);
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getActivities(User $user)
+    {
+        return $user->activities()->with('subject')->latest()->get()->groupBy(function ($activity) {
+            return $activity->created_at->format('Y-m-d');
+        });
     }
 }
