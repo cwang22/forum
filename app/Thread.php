@@ -5,9 +5,11 @@ namespace App;
 use app\Filters\ThreadFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Tests\Feature\ActivityTest;
 
 class Thread extends Model
 {
+    use RecordActivity;
     /**
      * mass assignment protections
      *

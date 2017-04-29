@@ -20,7 +20,7 @@ class Reply extends Model
      */
     protected $with = ['owner', 'favorites'];
 
-    use Favoritable;
+    use Favoritable, RecordActivity;
 
     /**
      * a reply belongs to a user
