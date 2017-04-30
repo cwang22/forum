@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
+use App\Reply;
 use App\Thread;
 
 class RepliesController extends Controller
@@ -27,5 +28,12 @@ class RepliesController extends Controller
         ]);
 
         return back()->with('flash', 'Reply has been created.');
+    }
+
+    public function destroy(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+        $reply->delete();
+        return back();
     }
 }
