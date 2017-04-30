@@ -45,6 +45,6 @@ trait Favoritable
      */
     public function favorites()
     {
-        return $this->morphMany(Favorite::class, 'favorite');
+        return $this->morphMany(Favorite::class, 'favorited');
     }
 }
