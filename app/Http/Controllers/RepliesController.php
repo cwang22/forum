@@ -36,4 +36,16 @@ class RepliesController extends Controller
         $reply->delete();
         return back();
     }
+
+    /**
+     * Update existing reply.
+     *
+     * @param Reply $reply
+     */
+    public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+        $this->validate(request(), ['body' => 'required']);
+        $reply->update(request(['body']));
+    }
 }

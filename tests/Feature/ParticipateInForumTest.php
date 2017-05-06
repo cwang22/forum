@@ -43,11 +43,37 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_can_delete_a_thread()
+    public function an_authenticated_user_can_delete_a_reply()
     {
         $this->signIn();
         $reply = create(Reply::class, ['user_id' => auth()->id()]);
         $this->delete("/replies/{$reply->id}")->assertStatus(302);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+    }
+
+    /** @test */
+    public function unauthenticated_users_cannot_update_replies()
+    {
+        $this->withExceptionHandling();
+        $reply = create(Reply::class);
+
+        $this->patch("/replies/{$reply->id}")
+            ->assertRedirect('login');
+
+        $this->signIn()->patch("/replies/{$reply->id}")
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function an_authenticated_user_can_edit_a_reply()
+    {
+        $this->signIn();
+        $reply = create(Reply::class, ['user_id' => auth()->id()]);
+        $updatedBody = 'Updated';
+        $this->patch("/replies/{$reply->id}", ['body' => $updatedBody]);
+        $this->assertDatabaseHas('replies', [
+            'id' => $reply->id,
+            'body' => $updatedBody
+            ]);
     }
 }
