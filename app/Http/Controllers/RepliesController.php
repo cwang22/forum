@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Channel;
 use App\Reply;
 use App\Thread;
+use Illuminate\Pagination\Paginator;
 
 class RepliesController extends Controller
 {
@@ -34,6 +35,10 @@ class RepliesController extends Controller
     {
         $this->authorize('update', $reply);
         $reply->delete();
+
+        if(request()->expectsJson()) {
+            return response()->json(['status' => 'Success']);
+        }
         return back();
     }
 

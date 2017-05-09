@@ -20,6 +20,11 @@
                 flash('Updated!');
             },
 
+            destroy() {
+                axios.delete('/replies/' + this.attributes.id);
+                $(this.$el).fadeOut(300, () => flash('Reply deleted.'));
+            },
+
             cancel() {
                 this.body = this.previousBody;
                 this.editing = false;
