@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 trait Favoritable
 {
     /**
+     * Boot the trait.
+     */
+    public function bootFavoritable()
+    {
+        static::deleting(function($model) {
+            $model->favorites()->delete();
+        });
+    }
+    /**
      * Determine if the reply has been favorited by current user
      * @return bool
      */
