@@ -9,10 +9,10 @@ trait Favoritable
     /**
      * Boot the trait.
      */
-    public function bootFavoritable()
+    public static function bootFavoritable()
     {
         static::deleting(function($model) {
-            $model->favorites()->delete();
+            $model->favorites->each->delete();
         });
     }
     /**
@@ -21,7 +21,7 @@ trait Favoritable
      */
     public function isFavorited()
     {
-        return !!$this->favorites->where('user_id', auth()->id())->count();
+        return ! ! $this->favorites->where('user_id', auth()->id())->count();
     }
 
     /**
