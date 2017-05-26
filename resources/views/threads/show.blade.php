@@ -27,26 +27,14 @@
                         </div>
                     </div>
 
-                    <replies :data="{{ $thread->replies }}" @removed="repliesCount--"></replies>
+                    <replies :data="{{ $thread->replies }}" @added="repliesCount++" @removed="repliesCount--"></replies>
 
                     {{$replies->links()}}
 
-                    @if(auth()->check())
-                        <h4>New Reply</h4>
-                        <form class="form" action="{{ $thread->path() . '/replies' }}" method="POST">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <textarea name="body" class="form-control" cols="30" rows="10"
-                                          placeholder="do you have something to say?"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="post" class="btn pull-right">
-                            </div>
-                        </form>
-                    @endif
                 </div>
                 <div class="col-md-4">
-                    <p>This thread was published at {{ $thread->created_at->diffForHumans() }} by {{ $thread->owner->name }}
+                    <p>This thread was published at {{ $thread->created_at->diffForHumans() }}
+                        by {{ $thread->owner->name }}
                         .</p>
                     <p><span v-text="repliesCount"></span> comments left.</p>
                 </div>

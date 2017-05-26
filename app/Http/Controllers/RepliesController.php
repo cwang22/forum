@@ -23,10 +23,14 @@ class RepliesController extends Controller
      */
     public function store(Channel $channel, Thread $thread)
     {
-        $thread->addReply([
+        $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
         ]);
+
+        if(request()->wantsJson()) {
+            return $reply->load('owner');
+        }
 
         return back()->with('flash', 'Reply has been created.');
     }
