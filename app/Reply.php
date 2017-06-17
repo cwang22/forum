@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
+    use Favoritable, RecordActivity;
+
     /**
      * mass assignment protections
      *
@@ -25,7 +27,19 @@ class Reply extends Model
      */
     protected $appends = ['favoritesCount', 'isFavorited'];
 
-    use Favoritable, RecordActivity;
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($reply) {
+            $reply->thread->increment('replies_count');
+        });
+
+        static::deleted(function($reply) {
+            $reply->thread->decrement('replies_count');
+        });
+    }
+
 
     /**
      * a reply belongs to a user
