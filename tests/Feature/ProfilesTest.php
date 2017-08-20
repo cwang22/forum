@@ -1,7 +1,6 @@
 <?php
 namespace Tests\Feature;
 
-use App\Thread;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
