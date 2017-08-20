@@ -95,4 +95,23 @@ class Thread extends Model
     {
         return $filters->apply($query);
     }
+
+    public function subscribe($userId)
+    {
+        $this->subscriptions()->create([
+            'user_id' => $userId ?: auth()->id
+        ]);
+    }
+
+    public function unsubscribe($userId)
+    {
+        $this->subscriptions()->where([
+                'user_id' => $userId ?: auth()->id
+        ])->delete();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(ThreadSubscription::class);
+    }
 }

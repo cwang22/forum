@@ -58,4 +58,19 @@ class ThreadTest extends TestCase
             $this->thread->path()
         );
     }
+
+    /** @test */
+    public function it_can_be_subscribed_to()
+    {
+        $this->thread->subscribe($userId = 1);
+        $this->assertEquals(1, $this->thread->subscriptions()->where('user_id', 1)->count());
+    }
+
+    /** @test */
+    public function it_can_be_unsubscribed_from()
+    {
+        $this->thread->subscribe($userId = 1);
+        $this->thread->unsubscribe($userId);
+        $this->assertCount(0, $this->thread->subscriptions);
+    }
 }
