@@ -34,7 +34,10 @@
                     <p>This thread was published at {{ $thread->created_at->diffForHumans() }}
                         by {{ $thread->owner->name }}
                         .</p>
+
                     <p><span v-text="repliesCount"></span> comments left.</p>
+
+                    <subscribe-button :subscribed="{{ json_encode($thread->isSubscribed) }}"></subscribe-button>
                 </div>
             </div>
         </div>
