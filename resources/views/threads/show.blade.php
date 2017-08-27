@@ -43,4 +43,3 @@
         </div>
     </thread-view>
 @endsection
-`
