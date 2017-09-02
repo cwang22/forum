@@ -3,6 +3,7 @@
 namespace App;
 
 use app\Filters\ThreadFilters;
+use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -68,19 +69,28 @@ class Thread extends Model
     /**
      * Add a reply to the thread
      *
-     * @param $reply
+     * @param array $reply
      *
      * @return Model
      */
     public function addReply($reply)
     {
         $reply = $this->replies()->create($reply);
+        $this->notifySubscriber($reply);
+        return $reply;
+    }
 
+    /**
+     * Notify all subscribers about a new reply
+     *
+     * @param Reply $reply
+     */
+    public function notifySubscriber($reply)
+    {
         $this->subscriptions
             ->where('user_id', '!=', $reply->user_id)
             ->each
             ->notify($reply);
-        return $reply;
     }
 
     /**
