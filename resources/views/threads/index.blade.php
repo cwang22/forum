@@ -10,7 +10,7 @@
                     <div class="panel-body">
                         @forelse($threads as $thread)
                             <h2><a href="{{$thread->path()}}">
-                                    @if($thread->hasUpdateForUser(auth()->user()))
+                                    @if(auth()->check() && $thread->hasUpdateForUser(auth()->user()))
                                         <strong>{{$thread->title}}</strong>
                                     @else
                                         {{$thread->title}}
