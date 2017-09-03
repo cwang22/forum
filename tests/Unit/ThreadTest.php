@@ -6,6 +6,7 @@ use App\Channel;
 use App\Notifications\ThreadWasUpdated;
 use App\Thread;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Notification;
@@ -91,17 +92,31 @@ class ThreadTest extends TestCase
 
     /** @test */
     function a_thread_notifies_all_registered_subscribers_when_a_reply_is_added()
-     {
-         Notification::fake();
+    {
+        Notification::fake();
 
-         $this->signIn()
-             ->thread
-             ->subscribe()
-             ->addReply([
-                 'body' => 'Foobar',
-                 'user_id' => 999
-             ]);
+        $this->signIn()
+            ->thread
+            ->subscribe()
+            ->addReply([
+                'body' => 'Foobar',
+                'user_id' => 999
+            ]);
 
-         Notification::assertSentTo(auth()->user(), ThreadWasUpdated::class);
-     }
+        Notification::assertSentTo(auth()->user(), ThreadWasUpdated::class);
+    }
+
+    /** @test */
+    public function it_can_check_if_authenticated_user_has_read_replies()
+    {
+        $this->signIn();
+
+        tap(auth()->user(), function ($user) {
+            $this->assertTrue($this->thread->hasUpdateForUser($user));
+
+            cache()->forever($user->visitedThreadCacheKey($this->thread), Carbon::now());
+
+            $this->assertFalse($this->thread->hasUpdateForUser($user));
+        });
+    }
 }

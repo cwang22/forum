@@ -9,7 +9,13 @@
 
                     <div class="panel-body">
                         @forelse($threads as $thread)
-                            <h2><a href="{{$thread->path()}}">{{$thread->title}}</a></h2>
+                            <h2><a href="{{$thread->path()}}">
+                                    @if($thread->hasUpdateForUser(auth()->user()))
+                                        <strong>{{$thread->title}}</strong>
+                                    @else
+                                        {{$thread->title}}
+                                    @endif
+                                </a></h2>
                             <p>{{ $thread->body }}</p>
                         @empty
                             <p>There are no relevant results at this time.</p>
