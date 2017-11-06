@@ -29,14 +29,12 @@ class RepliesController extends Controller
      *
      * @param Channel $channel
      * @param Thread $thread
-     * @param Spam $spam
      * @return \Illuminate\Http\Response | \Illuminate\Database\Eloquent\Model
      * @throws \Exception
      */
-    public function store(Channel $channel, Thread $thread, Spam $spam)
+    public function store(Channel $channel, Thread $thread)
     {
-        $spam->detect(request('body'));
-
+        $this->validatesReply();
         $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
@@ -68,7 +66,13 @@ class RepliesController extends Controller
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
-        $this->validate(request(), ['body' => 'required']);
+        $this->validatesReply();
         $reply->update(request(['body']));
+    }
+
+    protected function validatesReply()
+    {
+        $this->validate(request(), ['body' => 'required']);
+        resolve(Spam::class)->detect(request('body'));
     }
 }
