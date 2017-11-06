@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Reply;
+use App\Inspections\Spam;
 use App\Thread;
-use Illuminate\Pagination\Paginator;
 
 class RepliesController extends Controller
 {
@@ -29,10 +29,14 @@ class RepliesController extends Controller
      *
      * @param Channel $channel
      * @param Thread $thread
-     * @return \Illuminate\Http\Response
+     * @param Spam $spam
+     * @return \Illuminate\Http\Response | \Illuminate\Database\Eloquent\Model
+     * @throws \Exception
      */
-    public function store(Channel $channel, Thread $thread)
+    public function store(Channel $channel, Thread $thread, Spam $spam)
     {
+        $spam->detect(request('body'));
+
         $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
