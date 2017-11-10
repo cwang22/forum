@@ -34,17 +34,20 @@ class RepliesController extends Controller
      */
     public function store(Channel $channel, Thread $thread)
     {
-        $this->validatesReply();
-        $reply = $thread->addReply([
+        try {
+
+
+            $this->validatesReply();
+            $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
-        ]);
-
-        if(request()->wantsJson()) {
-            return $reply->load('owner');
+            ]);
+        } catch (\Exception $e) {
+            return response('Sorry, your reply could not be saved at this moment', 422);
         }
 
-        return back()->with('flash', 'Reply has been created.');
+        return $reply->load('owner');
+
     }
 
     public function destroy(Reply $reply)
