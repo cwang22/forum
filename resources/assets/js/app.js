@@ -25,8 +25,8 @@ Vue.component('thread-view', require('./pages/Thread.vue'));
 
 window.events = new Vue();
 
-window.flash = function (message) {
-    window.events.$emit('flash', message);
+window.flash = function (message, level = 'success') {
+    window.events.$emit('flash', {message, level});
 };
 
 const app = new Vue({
