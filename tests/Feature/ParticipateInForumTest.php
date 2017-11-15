@@ -89,8 +89,7 @@ class ParticipateInForumTest extends TestCase
         $reply = make(Reply::class, [
             'body' => 'Yahoo Customer Support'
         ]);
-        $this->expectException(\Exception::class);
 
-        $this->post($thread->path() . '/replies', $reply->toArray());
+        $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(422);
     }
 }
