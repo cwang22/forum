@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
+use App\Http\Requests\CreatePostRequest;
 use App\Reply;
 use App\Thread;
 use Illuminate\Support\Facades\Gate;
@@ -30,29 +31,15 @@ class RepliesController extends Controller
      *
      * @param Channel $channel
      * @param Thread $thread
-     * @return \Illuminate\Http\Response | \Illuminate\Database\Eloquent\Model
-     * @throws \Exception
+     * @param CreatePostRequest $request
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
      */
-    public function store(Channel $channel, Thread $thread)
+    public function store(Channel $channel, Thread $thread, CreatePostRequest $request)
     {
-        if (Gate::denies('create', new Reply)) {
-            return response(
-                'You are posting too frequently. Please take a break. :)', 429
-            );
-        }
-
-        try {
-            $this->validate(request(), ['body' => 'required|spamfree']);
-            $reply = $thread->addReply([
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]);
-        } catch (\Exception $e) {
-            return response('Sorry, your reply could not be saved at this moment', 422);
-        }
-
-        return $reply->load('owner');
-
+        return $thread->addReply([
+            'body' => request('body'),
+            'user_id' => auth()->id()
+        ])->load('owner');
     }
 
     public function destroy(Reply $reply)

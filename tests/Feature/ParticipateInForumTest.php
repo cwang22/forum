@@ -40,7 +40,7 @@ class ParticipateInForumTest extends TestCase
             ->assertRedirect('login');
 
         $this->signIn()->delete("/replies/{$reply->id}")
-        ->assertStatus(403);
+            ->assertStatus(403);
     }
 
     /** @test */
@@ -76,34 +76,29 @@ class ParticipateInForumTest extends TestCase
         $this->assertDatabaseHas('replies', [
             'id' => $reply->id,
             'body' => $updatedBody
-            ]);
+        ]);
     }
 
     /** @test */
     public function replies_that_contain_spam_may_not_be_created()
     {
+        $this->withExceptionHandling();
         $this->signIn();
-
         $thread = create(Thread::class);
-
         $reply = make(Reply::class, [
             'body' => 'Yahoo Customer Support'
         ]);
-
-        $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(422);
+        $this->json('post', $thread->path() . '/replies', $reply->toArray())->assertStatus(422);
     }
 
     /** @test */
     public function a_user_can_only_create_replies_once_per_min()
     {
+        $this->withExceptionHandling();
         $this->signIn();
-
         $thread = create(Thread::class);
-
         $reply = make(Reply::class);
-
-        $this->post($thread->path(). '/replies', $reply->toArray())->assertStatus(200);
-
-        $this->post($thread->path(). '/replies', $reply->toArray())->assertStatus(429);
+        $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(200);
+        $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(429);
     }
 }
