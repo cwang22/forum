@@ -1,22 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: cwang
- * Date: 6/11/2017
- * Time: 13:44
- */
 
 namespace App\Inspections;
 
 
 class InvalidKeywords
 {
-    public function detect($body) {
-        $invalidKeywords = [
-            'yahoo customer support'
-        ];
+    /**
+     * All registered invalid keywords.
+     *
+     * @var array
+     */
+    protected $keywords = [
+        'yahoo customer support'
+    ];
 
-        foreach ($invalidKeywords as $keyword) {
+    /**
+     * Detect spam.
+     *
+     * @param  string $body
+     * @throws \Exception
+     */
+    public function detect($body)
+    {
+
+
+        foreach ($this->keywords as $keyword) {
             if (stripos($body, $keyword) !== false) {
                 throw new \Exception('Spam Detected');
             }
