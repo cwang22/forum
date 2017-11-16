@@ -92,4 +92,18 @@ class ParticipateInForumTest extends TestCase
 
         $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(422);
     }
+
+    /** @test */
+    public function a_user_can_only_create_replies_once_per_min()
+    {
+        $this->signIn();
+
+        $thread = create(Thread::class);
+
+        $reply = make(Reply::class);
+
+        $this->post($thread->path(). '/replies', $reply->toArray())->assertStatus(200);
+
+        $this->post($thread->path(). '/replies', $reply->toArray())->assertStatus(429);
+    }
 }

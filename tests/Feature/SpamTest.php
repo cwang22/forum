@@ -17,6 +17,7 @@ class SpamTest extends TestCase
         $spam->detect('yahoo customer support');
     }
 
+    /** @test */
     public function it_checks_for_any_key_been_held_down()
     {
         $spam = new Spam();
@@ -24,6 +25,6 @@ class SpamTest extends TestCase
         $this->assertFalse($spam->detect('Innocent content here'));
 
         $this->expectException(\Exception::class);
-        $spam->detect('aaaa');
+        $spam->detect('aaaaaaaa');
     }
 }
