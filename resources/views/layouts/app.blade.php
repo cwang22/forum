@@ -44,6 +44,7 @@
             'signedIn' => Auth::check()
         ]) !!};
     </script>
+    @yield('head')
 </head>
 <body>
 <div id="app" style="margin-bottom: 40px;">
