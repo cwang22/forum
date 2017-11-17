@@ -137,7 +137,7 @@ class Thread extends Model
      * @param $user
      * @return bool
      */
-    public function hasUpdateForUser($user)
+    public function hasUpdatesFor($user)
     {
         return cache()->get(auth()->user()->visitedThreadCacheKey($this)) < $this->updated_at;
     }
