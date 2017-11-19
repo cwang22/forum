@@ -26,7 +26,7 @@ class RepliesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new reply
      *
      * @param Channel $channel
      * @param Thread $thread
