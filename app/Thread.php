@@ -37,7 +37,7 @@ class Thread extends Model
 
 
     /**
-     * a thread belongs to a user
+     * A thread belongs to a user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -47,7 +47,7 @@ class Thread extends Model
     }
 
     /**
-     * a thread belongs to a channel
+     * A thread belongs to a channel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -57,7 +57,7 @@ class Thread extends Model
     }
 
     /**
-     *  Get a string path for the thread
+     *  Get a string path for the thread.
      *
      * @return string
      */
@@ -67,7 +67,7 @@ class Thread extends Model
     }
 
     /**
-     * Add a reply to the thread
+     * Add a reply to the thread.
      *
      * @param array $reply
      *
@@ -83,7 +83,7 @@ class Thread extends Model
     }
 
     /**
-     * a thread consists of replies
+     * A thread consists of replies.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -94,6 +94,7 @@ class Thread extends Model
 
     /**
      * Apply all relevant thread filters.
+     *
      * @param Builder $query
      * @param ThreadFilters $filters
      * @return Builder
@@ -103,6 +104,12 @@ class Thread extends Model
         return $filters->apply($query);
     }
 
+    /**
+     * Subscribe a user to the thread.
+     *
+     * @param null $userId
+     * @return $this
+     */
     public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
@@ -112,6 +119,12 @@ class Thread extends Model
         return $this;
     }
 
+    /**
+     * Unsubscribe a user from the thread.
+     *
+     * @param null $userId
+     * @return $this
+     */
     public function unsubscribe($userId = null)
     {
         $this->subscriptions()->where([
@@ -121,11 +134,21 @@ class Thread extends Model
         return $this;
     }
 
+    /**
+     * A thread can have many subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function subscriptions()
     {
         return $this->hasMany(ThreadSubscription::class);
     }
 
+    /**
+     * Determine if the current user is subscribed to the thread
+     *
+     * @return boolean
+     */
     public function getIsSubscribedAttribute()
     {
         return $this->subscriptions()->where(
@@ -134,10 +157,12 @@ class Thread extends Model
     }
 
     /**
-     * @param $user
+     * Determine if the thread has been updated since the user last read it.
+     *
+     * @param User $user
      * @return bool
      */
-    public function hasUpdatesFor($user)
+    public function hasUpdatesFor(User $user)
     {
         return cache()->get(auth()->user()->visitedThreadCacheKey($this)) < $this->updated_at;
     }

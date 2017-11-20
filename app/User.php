@@ -39,7 +39,7 @@ class User extends Authenticatable
     }
 
     /**
-     * A user has many threads
+     * A user has many threads.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -49,7 +49,7 @@ class User extends Authenticatable
     }
 
     /**
-     * A user has many activities
+     * A user has many activities.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the last reply of the user
+     * Get the last reply of the user.
      * @return mixed
      */
     public function lastReply()
@@ -67,7 +67,13 @@ class User extends Authenticatable
         return $this->hasOne(Reply::class)->latest();
     }
 
-    public function visitedThreadCacheKey($thread)
+    /**
+     * Get the cache key for when a user reads a thread.
+     *
+     * @param Thread $thread
+     * @return string
+     */
+    public function visitedThreadCacheKey(Thread $thread)
     {
         return sprintf('users.%s.visits.%s', $this->id, $thread->id);
     }

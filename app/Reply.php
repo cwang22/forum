@@ -43,7 +43,7 @@ class Reply extends Model
 
 
     /**
-     * a reply belongs to a user
+     * A reply belongs to a user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -53,7 +53,7 @@ class Reply extends Model
     }
 
     /**
-     * a reply belongs to a thread
+     * A reply belongs to a thread.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
