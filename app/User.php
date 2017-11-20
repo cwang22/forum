@@ -58,6 +58,10 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
+    /**
+     * Get the last reply of the user
+     * @return mixed
+     */
     public function lastReply()
     {
         return $this->hasOne(Reply::class)->latest();
@@ -74,5 +78,15 @@ class User extends Authenticatable
             $this->visitedThreadCacheKey($thread),
             Carbon::now()
         );
+    }
+
+    /**
+     *  Get the avatar_path attribute
+     *
+     * @return string
+     */
+    public function getAvatarPathAttribute($avatar)
+    {
+        return asset($avatar ? 'storage/' . $avatar : 'images/avatars/default.png');
     }
 }

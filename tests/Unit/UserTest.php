@@ -14,8 +14,20 @@ class UserTest extends TestCase
     /** @test */
     public function users_can_fetch_their_last_reply()
     {
-        $user = create('App\User');
-        $reply = create('App\Reply', ['user_id' => $user->id]);
+        $user = create(User::class);
+        $reply = create(Reply::class, ['user_id' => $user->id]);
         $this->assertEquals($reply->id, $user->lastReply->id);
+    }
+
+    /** @test */
+    public function it_can_determine_its_avatar_path()
+    {
+        $user = create(User::class);
+
+        $this->assertEquals(asset('images/avatars/default.png'), $user->avatar_path);
+
+        $user->avatar_path = 'avatars/custom.jpg';
+
+        $this->assertEquals(asset('storage/avatars/custom.jpg'), $user->avatar_path);
     }
 }
