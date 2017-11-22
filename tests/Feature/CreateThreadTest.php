@@ -69,6 +69,14 @@ class CreateThreadTest extends TestCase
         $this->delete($thread->path())
             ->assertStatus(403);
     }
+    
+    /** @test */
+    public function authenticated_users_must_first_confirm_their_email_address_before_creating_threads()
+    {
+        $this->publishThread()
+            ->assertRedirect('/threads')
+            ->assertSessionHas('flash');
+    }
 
     /** @test */
     public function a_thread_can_be_deleted()
