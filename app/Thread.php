@@ -6,6 +6,7 @@ use App\Events\ThreadReceivedNewReply;
 use app\Filters\ThreadFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 class Thread extends Model
 {
@@ -165,5 +166,25 @@ class Thread extends Model
     public function hasUpdatesFor(User $user)
     {
         return cache()->get(auth()->user()->visitedThreadCacheKey($this)) < $this->updated_at;
+    }
+
+    public function resetVisits()
+    {
+        Redis::del($this->visitCacheKey());
+    }
+
+    protected function visitCacheKey()
+    {
+        return 'threads.' . $this->id . '.visits';
+    }
+
+    public function visits()
+    {
+        return Redis::get($this->visitCacheKey()) ?? 0;
+    }
+
+    public function recordVisit()
+    {
+        Redis::incr($this->visitCacheKey());
     }
 }
