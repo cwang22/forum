@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Channel;
 use App\Filters\ThreadFilters;
 use App\Thread;
+use App\Trending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ThreadsController extends Controller
 {
@@ -21,14 +23,18 @@ class ThreadsController extends Controller
      * @param ThreadFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function index(Channel $channel, ThreadFilters $filters)
+    public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
     {
         $threads = $this->getThreads($channel, $filters);
 
         if (request()->wantsJson()) {
             return $threads;
         }
-        return view('threads.index', compact('threads'));
+
+        return view('threads.index', [
+            'threads' => $threads,
+            'trending' => $trending->get()
+        ]);
     }
 
     /**
@@ -61,7 +67,7 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -86,14 +92,18 @@ class ThreadsController extends Controller
      * Display the specified resource.
      *
      * @param Channel $channel
-     * @param  \App\Thread $thread
+     * @param Thread $thread
+     * @param Trending $trending
      * @return \Illuminate\Http\Response
      */
-    public function show(Channel $channel, Thread $thread)
+    public function show(Channel $channel, Thread $thread, Trending $trending)
     {
         if (auth()->check()) {
             auth()->user()->read($thread);
         }
+
+        $trending->push($thread);
+
         return view('threads.show', ['thread' => $thread]);
     }
 
@@ -101,7 +111,7 @@ class ThreadsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Channel $channel
-     * @param  \App\Thread $thread
+     * @param  Thread $thread
      * @return \Illuminate\Http\Response
      */
     public function destroy(Channel $channel, Thread $thread)
