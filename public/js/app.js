@@ -11342,10 +11342,23 @@ window.Vue = __webpack_require__(35);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.prototype.authorize = function (handler) {
-    var user = window.App.user;
-    return user ? handler(user) : false;
+var authorizations = __webpack_require__(87);
+
+Vue.prototype.authorize = function () {
+    if (!window.App.signedIn) return false;
+
+    for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+        params[_key] = arguments[_key];
+    }
+
+    if (typeof params[0] === 'string') {
+        return authorizations[params[0]](params[1]);
+    }
+
+    return params[0](window.App.user);
 };
+
+Vue.prototype.signedIn = window.App.signedIn;
 
 Vue.component('flash', __webpack_require__(38));
 Vue.component('user-notifications', __webpack_require__(46));
@@ -43500,6 +43513,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43510,19 +43528,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             editing: false,
             id: this.data.id,
             body: this.data.body,
-            previousBody: this.data.body
+            previousBody: this.data.body,
+            isBest: this.data.isBest
         };
+    },
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('best-replies-selected', function (id) {
+            _this.isBest = id === _this.id;
+        });
     },
 
     computed: {
-        singedIn: function singedIn() {
-            return window.App.signedIn;
-        },
         canUpdate: function canUpdate() {
-            var _this = this;
+            var _this2 = this;
 
             return this.authorize(function (user) {
-                return _this.data.user_id === user.id;
+                return _this2.data.user_id === user.id;
             });
         }
     },
@@ -43545,6 +43568,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         cancel: function cancel() {
             this.body = this.previousBody;
             this.editing = false;
+        },
+        markAsBest: function markAsBest() {
+            axios.post('/replies/' + this.data.id + '/best');
+            window.events.$emit('best-replies-selected', this.data.id);
         }
     }
 });
@@ -43673,7 +43700,8 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "panel panel-default",
+    staticClass: "panel",
+    class: _vm.isBest ? 'panel-success' : 'panel-default',
     attrs: {
       "id": 'reply-' + _vm.id
     }
@@ -43690,7 +43718,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.data.owner.name)
     }
-  }), _vm._v("\n                said\n            ")]), _vm._v(" "), (_vm.singedIn) ? _c('div', [_c('favorite', {
+  }), _vm._v("\n                said\n            ")]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('favorite', {
     attrs: {
       "reply": _vm.data
     }
@@ -43739,9 +43767,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.body)
     }
-  })]), _vm._v(" "), (_vm.canUpdate) ? _c('div', {
+  })]), _vm._v(" "), _c('div', {
     staticClass: "panel-footer level"
-  }, [_c('button', {
+  }, [(_vm.canUpdate) ? _c('div', [_c('button', {
     staticClass: "btn btn-xs mr-1",
     on: {
       "click": function($event) {
@@ -43753,7 +43781,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.destroy
     }
-  }, [_vm._v("Delete")])]) : _vm._e()])
+  }, [_vm._v("Delete")])]) : _vm._e(), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-xs btn-default ml-a",
+    on: {
+      "click": _vm.markAsBest
+    }
+  }, [_vm._v("Best Reply?")])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -44000,12 +44033,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             body: ''
         };
-    },
-
-    computed: {
-        signedIn: function signedIn() {
-            return window.App.signedIn;
-        }
     },
     mounted: function mounted() {
         $('#body').atwho({
@@ -46140,6 +46167,28 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var user = window.App.user;
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    updateReply: function updateReply(reply) {
+        return reply.user_id === user.id;
+    }
+});
 
 /***/ })
 /******/ ]);
