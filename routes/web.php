@@ -41,4 +41,4 @@ Route::get('/api/users', 'Api\UsersController@index');
 Route::post('/api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar_path');
 
 Route::get('/register/confirm', 'Auth\RegisterConfirmationController@index')->name('register.confirm');
-Route::post('/replies/{reply}/best', 'BestRepliesController@store')->name('best-replies');
+Route::post('/replies/{reply}/best', 'BestRepliesController@store')->name('best-replies.store');
