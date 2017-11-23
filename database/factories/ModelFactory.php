@@ -20,6 +20,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'confirmed' => true,
+    ];
+});
+
+$factory->state(App\User::class, 'unconfirmed', function () {
+    return [
         'confirmed' => false
     ];
 });
@@ -33,7 +39,7 @@ $factory->define(App\Thread::class, function ($faker) {
             return factory('App\Channel')->create()->id;
         },
         'title' => $faker->sentence,
-        'body'  => $faker->paragraph,
+        'body' => $faker->paragraph,
         'visits' => 0
     ];
 });
@@ -54,7 +60,7 @@ $factory->define(App\Reply::class, function ($faker) {
         'user_id' => function () {
             return factory('App\User')->create()->id;
         },
-        'body'  => $faker->paragraph
+        'body' => $faker->paragraph
     ];
 });
 

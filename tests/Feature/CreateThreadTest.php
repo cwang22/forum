@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Activity;
 use App\Reply;
 use App\Thread;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -63,7 +64,7 @@ class CreateThreadTest extends TestCase
         $this->withExceptionHandling();
         $thread = create(Thread::class);
         $this->delete($thread->path())
-            ->assertRedirect('/login');
+            ->assertRedirect(route('login'));
 
         $this->signIn();
         $this->delete($thread->path())
@@ -73,8 +74,11 @@ class CreateThreadTest extends TestCase
     /** @test */
     public function authenticated_users_must_first_confirm_their_email_address_before_creating_threads()
     {
-        $this->publishThread()
-            ->assertRedirect('/threads')
+        $user = factory(User::class)->states('unconfirmed')->create();
+
+        $this->signIn($user);
+        $thread = make(Thread::class);
+        return $this->post(route('threads'), $thread->toArray())->assertRedirect(route('threads'))
             ->assertSessionHas('flash');
     }
 
@@ -99,6 +103,6 @@ class CreateThreadTest extends TestCase
     {
         $this->withExceptionHandling()->signIn();
         $thread = make(Thread::class, $overrides);
-        return $this->post('/threads', $thread->toArray());
+        return $this->post(route('threads'), $thread->toArray());
     }
 }

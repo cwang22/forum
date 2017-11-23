@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar_path'
+        'name', 'email', 'password', 'avatar_path', 'confirm_token'
     ];
 
     /**
@@ -26,6 +26,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'confirmed' => 'boolean'
     ];
 
     /**
@@ -59,6 +63,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Confirm a user's email.
+     */
+    public function confirm()
+    {
+        $this->confirmed = true;
+        $this->save();
+        return $this;
+    }
+
+    /**
      * Get the last reply of the user.
      * @return mixed
      */
@@ -78,12 +92,18 @@ class User extends Authenticatable
         return sprintf('users.%s.visits.%s', $this->id, $thread->id);
     }
 
-    public function read($thread)
+    /**
+     * Mark the thread as read.
+     * @param Thread $thread
+     * @return $this
+     */
+    public function read(Thread $thread)
     {
         cache()->forever(
             $this->visitedThreadCacheKey($thread),
             Carbon::now()
         );
+        return $this;
     }
 
     /**
