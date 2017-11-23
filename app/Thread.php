@@ -30,6 +30,12 @@ class Thread extends Model
     {
         parent::boot();
 
+        static::created(function (Thread $thread) {
+            $thread->update([
+                'slug' => $thread->title
+            ]);
+        });
+
         static::deleting(function (Thread $thread) {
             $thread->replies->each->delete();
         });
@@ -63,7 +69,7 @@ class Thread extends Model
      */
     public function path()
     {
-        return "/threads/{$this->channel->slug}/$this->id";
+        return "/threads/{$this->channel->slug}/$this->slug";
     }
 
     /**
@@ -165,5 +171,43 @@ class Thread extends Model
     public function hasUpdatesFor(User $user)
     {
         return cache()->get(auth()->user()->visitedThreadCacheKey($this)) < $this->updated_at;
+    }
+
+    /**
+     * Get route key name for the thread.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Set the slug attribute
+     *
+     * @param $value
+     */
+    public function setSlugAttribute($value)
+    {
+        if (static::whereSlug($slug = str_slug($value))->exists()) {
+            $slug = $this->uniqueSlug($slug);
+        }
+
+        $this->attributes['slug'] = $slug;
+    }
+
+    /**
+     * Get an uniqueSlug
+     *
+     * @param $slug
+     * @return string
+     */
+    protected function uniqueSlug($slug)
+    {
+        if (static::whereSlug($slug)->exists()) {
+            $slug = "{$slug}-{$this->id}";
+        }
+        return $slug;
     }
 }

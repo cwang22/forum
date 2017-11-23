@@ -52,6 +52,19 @@ class CreateThreadTest extends TestCase
     }
 
     /** @test */
+    public function a_thread_requires_an_unique_slug()
+    {
+        $this->signIn();
+        $thread = create(Thread::class, ['title' => 'Foo Title']);
+        $this->assertTrue(Thread::whereSlug('foo-title')->exists());
+
+        $thread = $this->postJson(route('threads'), $thread->toArray())->json();
+        $this->assertEquals("foo-title-{$thread['id']}", $thread['slug']);
+
+
+    }
+
+    /** @test */
     public function a_thread_requires_a_valid_channel()
     {
         $this->publishThread(['channel_id' => 3])
@@ -70,7 +83,7 @@ class CreateThreadTest extends TestCase
         $this->delete($thread->path())
             ->assertStatus(403);
     }
-    
+
     /** @test */
     public function authenticated_users_must_first_confirm_their_email_address_before_creating_threads()
     {

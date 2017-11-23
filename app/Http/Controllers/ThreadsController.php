@@ -7,7 +7,6 @@ use App\Filters\ThreadFilters;
 use App\Thread;
 use App\Trending;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 
 class ThreadsController extends Controller
 {
@@ -84,6 +83,10 @@ class ThreadsController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
+
+        if (request()->wantsJson()) {
+            return response($thread, 201);
+        }
 
         return redirect($thread->path())->with('flash', 'Thread has been created.');
     }
