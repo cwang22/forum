@@ -69,11 +69,13 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'confirm_token' => str_random(25)
+            'confirm_token' => str_limit(md5($data['email'] . str_random(9)), 25, '')
         ]);
     }
 
     /**
+     *  The user has been registered.
+     *
      * @param Request $request
      * @param $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
