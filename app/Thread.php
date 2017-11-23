@@ -210,4 +210,12 @@ class Thread extends Model
         }
         return $slug;
     }
+
+    public function markBestReply(Reply $reply)
+    {
+        $this->best_reply_id = $reply->id;
+        $this->save();
+
+        return $this;
+    }
 }
