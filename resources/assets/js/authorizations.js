@@ -1,7 +1,7 @@
 const user = window.App.user;
 
-export default {
-    updateReply(reply) {
-        return reply.user_id === user.id;
+module.exports = {
+    owns(model, props = 'user_id') {
+        return model[props] === user.id
     }
-}
+};
