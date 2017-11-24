@@ -40,7 +40,8 @@ $factory->define(App\Thread::class, function ($faker) {
         },
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
-        'visits' => 0
+        'visits' => 0,
+        'locked' => false
     ];
 });
 

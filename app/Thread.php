@@ -218,4 +218,12 @@ class Thread extends Model
 
         return $this;
     }
+
+    public function lock()
+    {
+        $this->locked = true;
+        $this->save();
+
+        return $this;
+    }
 }

@@ -116,4 +116,13 @@ class User extends Authenticatable
     {
         return asset($avatar ? 'storage/' . $avatar : 'images/avatars/default.png');
     }
+
+    /**
+     * Determine if the user is admin
+     *
+     * @return bool
+     */
+    public function isAdmin() {
+        return in_array($this->email, ['i@seewang.me']);
+    }
 }
