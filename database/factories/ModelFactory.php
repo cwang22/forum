@@ -24,6 +24,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->state(App\User::class, 'administrator', function() {
+    return [
+        'email' => 'i@seewang.me'
+    ];
+});
+
 $factory->state(App\User::class, 'unconfirmed', function () {
     return [
         'confirmed' => false

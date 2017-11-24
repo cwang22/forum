@@ -3,25 +3,37 @@
 namespace Tests\Feature;
 
 use App\Thread;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class LockThreadTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     /** @test */
     public function non_administrator_may_not_lock_a_thread()
     {
-        $this->signIn();
+        $this->withExceptionHandling()->signIn();
 
         $thread = create(Thread::class, [
             'user_id' => auth()->id()
         ]);
 
-        $this->patch($thread->path(), [
-            'locked' => true
-        ])->assertStatus(403);
+        $this->post(route('locked-threads', $thread))->assertStatus(403);
+    }
+
+    /** @test */
+    public function an_administrator_can_lock_a_thread()
+    {
+        $this->signIn(factory(User::class)->states('administrator')->create());
+        $thread = create(Thread::class, [
+            'user_id' => auth()->id()
+        ]);
+
+        $this->post(route('lock-threads', $thread));
+
+        $this->assertTrue(!!$thread->fresh()->locked, 'Failed asserting that the thread was locked.');
     }
 
     /** @test */
