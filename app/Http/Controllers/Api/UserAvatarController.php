@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\User;
 
 class UserAvatarController extends Controller
 {
     /**
      * Store uploaded avatar
      *
-     * @param \App\User $user
+     * @param User $user
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function store($user)
+    public function store(User $user)
     {
-        $this->validate(request(), [
+        request()->validate([
             'avatar' => ['required', 'image']
         ]);
 

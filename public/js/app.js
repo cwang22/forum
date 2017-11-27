@@ -43339,15 +43339,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies_vue___default.a, SubscribeButton: __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue___default.a },
     data: function data() {
         return {
+            title: this.thread.title,
+            body: this.thread.body,
             repliesCount: this.thread.replies_count,
-            locked: this.thread.locked
+            editing: false,
+            locked: this.thread.locked,
+            form: {
+                title: this.thread.title,
+                body: this.thread.body
+            }
         };
     },
 
     methods: {
         toggleLock: function toggleLock() {
-            axios[this.lock ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+            var uri = '/locked-threads/' + this.thread.slug;
+            axios[this.lock ? 'delete' : 'post'](uri);
             this.locked = !this.locked;
+        },
+        update: function update() {
+            var _this = this;
+
+            var uri = '/threads/' + this.thread.channel.slug + '/' + this.thread.slug;
+            axios.patch(uri, this.form).then(function () {
+                _this.editing = false;
+                _this.title = _this.form.title;
+                _this.body = _this.form.body;
+                flash('You thread has been updated.');
+            });
+        },
+        cancel: function cancel() {
+            this.editing = false;
+            this.form.title = this.title;
+            this.form.body = this.body;
         }
     }
 });

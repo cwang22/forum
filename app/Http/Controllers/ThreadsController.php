@@ -7,7 +7,6 @@ use App\Filters\ThreadFilters;
 use App\Rules\Recaptcha;
 use App\Thread;
 use App\Trending;
-use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
 {
@@ -38,23 +37,6 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Get filtered threads
-     *
-     * @param Channel $channel
-     * @param ThreadFilters $filters
-     * @return mixed
-     */
-    private function getThreads(Channel $channel, ThreadFilters $filters)
-    {
-        $threads = Thread::latest()->filter($filters);
-
-        if ($channel->exists) {
-            $threads->where('channel_id', $channel->id);
-        }
-        return $threads->paginate(25);
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -67,13 +49,12 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $request
      * @param Recaptcha $recaptcha
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Recaptcha $recaptcha)
+    public function store(Recaptcha $recaptcha)
     {
-        $this->validate($request, [
+        request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             'channel_id' => 'required|exists:channels,id',
@@ -148,5 +129,23 @@ class ThreadsController extends Controller
         ]));
 
         return $thread;
+    }
+
+
+    /**
+     * Get filtered threads
+     *
+     * @param Channel $channel
+     * @param ThreadFilters $filters
+     * @return mixed
+     */
+    private function getThreads(Channel $channel, ThreadFilters $filters)
+    {
+        $threads = Thread::latest()->filter($filters);
+
+        if ($channel->exists) {
+            $threads->where('channel_id', $channel->id);
+        }
+        return $threads->paginate(25);
     }
 }

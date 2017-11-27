@@ -9,28 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="level">
-                                <span class="flex">
-                                    <a href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->name }}</a> posted:
-                                    {{ $thread->title }}
-                                </span>
-
-                                @can('update', $thread)
-                                    <form action="{{ $thread->path() }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button class="btn btn-link">Delete Thread</button>
-                                    </form>
-                                @endcan
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <p>{{$thread->body}}</p>
-                        </div>
-                    </div>
-
+                    @include('threads._body')
                     <replies @added="repliesCount++" @removed="repliesCount--"></replies>
 
                 </div>
