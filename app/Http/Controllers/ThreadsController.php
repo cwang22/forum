@@ -135,23 +135,18 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Update existing thread.
-     *
      * @param Channel $channel
      * @param Thread $thread
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return Thread
      */
     public function update(Channel $channel, Thread $thread)
     {
-        if (request()->has('locked')) {
-            if (!auth()->user()->isAdmin()) {
-                return response('Unauthorized.', 403);
-            }
-        }
-
         $this->authorize('update', $thread);
-        $thread->update(request()->all());
+        $thread->update(request()->validate([
+            'title' => 'required|spamfree',
+            'body' => 'required|spamfree'
+        ]));
 
-        return response([], 204);
+        return $thread;
     }
 }
