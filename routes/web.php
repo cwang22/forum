@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::post('/threads', 'ThreadsController@store')->middleware('email-confirmed');
 Route::get('/threads', 'ThreadsController@index')->name('threads');
+Route::get('/threads/search', 'SearchController@show');
 Route::get('/threads/create', 'ThreadsController@create');
 Route::get('/threads/{channel}', 'ThreadsController@index');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
