@@ -5,8 +5,8 @@ namespace Tests\Feature;
 use App\Reply;
 use App\Thread;
 use App\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class MentionUsersTest extends TestCase
 {

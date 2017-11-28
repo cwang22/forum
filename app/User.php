@@ -83,17 +83,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the cache key for when a user reads a thread.
-     *
-     * @param Thread $thread
-     * @return string
-     */
-    public function visitedThreadCacheKey(Thread $thread)
-    {
-        return sprintf('users.%s.visits.%s', $this->id, $thread->id);
-    }
-
-    /**
      * Mark the thread as read.
      * @param Thread $thread
      * @return $this
@@ -105,6 +94,17 @@ class User extends Authenticatable
             Carbon::now()
         );
         return $this;
+    }
+
+    /**
+     * Get the cache key for when a user reads a thread.
+     *
+     * @param Thread $thread
+     * @return string
+     */
+    public function visitedThreadCacheKey(Thread $thread)
+    {
+        return sprintf('users.%s.visits.%s', $this->id, $thread->id);
     }
 
     /**
@@ -122,7 +122,8 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return in_array($this->email, ['i@seewang.me']);
     }
 }

@@ -13,11 +13,11 @@
     </div>
 </template>
 <script>
-    import axios from 'axios';
-    import Reply from './Reply';
-    import Paginator from './Paginator';
-    import NewReply from './NewReply';
-    import collection from '../mixins/collection';
+    import axios from 'axios'
+    import Reply from './Reply'
+    import Paginator from './Paginator'
+    import NewReply from './NewReply'
+    import collection from '../mixins/collection'
 
     export default {
         props: ['data'],
@@ -30,24 +30,24 @@
             }
         },
         created() {
-            this.fetch();
+            this.fetch()
         },
         methods: {
             fetch(page) {
-                axios.get(this.url(page)).then(this.refresh);
+                axios.get(this.url(page)).then(this.refresh)
             },
             url(page) {
                 if (!page) {
-                    let query = location.search.match(/page=(\d+)/);
-                    page = query ? query[1] : 1;
+                    let query = location.search.match(/page=(\d+)/)
+                    page = query ? query[1] : 1
                 }
 
-                return `${location.pathname}/replies?page=${page}`;
+                return `${location.pathname}/replies?page=${page}`
             },
             refresh({data}) {
-                this.dataSet = data;
-                this.items = data.data;
-                window.scrollTo(0, 0);
+                this.dataSet = data
+                this.items = data.data
+                window.scrollTo(0, 0)
             }
         }
     }

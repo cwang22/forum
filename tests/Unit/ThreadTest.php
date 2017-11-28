@@ -18,12 +18,6 @@ class ThreadTest extends TestCase
     private $thread;
     use DatabaseMigrations;
 
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->thread = create(Thread::class);
-    }
-
     /** @test */
     public function it_has_a_owner()
     {
@@ -118,5 +112,11 @@ class ThreadTest extends TestCase
 
             $this->assertFalse($this->thread->hasUpdatesFor($user));
         });
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->thread = create(Thread::class);
     }
 }

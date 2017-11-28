@@ -32,11 +32,11 @@ class Reply extends Model
     {
         parent::boot();
 
-        static::created(function($reply) {
+        static::created(function ($reply) {
             $reply->thread->increment('replies_count');
         });
 
-        static::deleted(function($reply) {
+        static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
         });
     }
@@ -104,19 +104,20 @@ class Reply extends Model
 
     /**
      * Determine if the reply is marked as best reply.
-     *
-     * @return boolean
-     */
-    public function isBest() {
-        return $this->id == $this->thread->best_reply_id;
-    }
-
-    /**
-     * Determine if the reply is marked as best reply.
      * @return bool
      */
     public function getIsBestAttribute()
     {
         return $this->isBest();
+    }
+
+    /**
+     * Determine if the reply is marked as best reply.
+     *
+     * @return boolean
+     */
+    public function isBest()
+    {
+        return $this->id == $this->thread->best_reply_id;
     }
 }

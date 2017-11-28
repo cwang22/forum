@@ -52,7 +52,7 @@ class RegistrationTest extends TestCase
         $this->assertTrue($user->fresh()->confirmed);
         $this->assertNull($user->fresh()->confirm_token);
     }
-    
+
     /** @test */
     public function confirming_an_invalid_token()
     {

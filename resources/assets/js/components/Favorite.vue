@@ -10,35 +10,35 @@
         data() {
             return {
                 count: this.reply.favoritesCount,
-                active: this.reply.isFavorited,
-            };
+                active: this.reply.isFavorited
+            }
         },
 
         computed: {
             classes() {
-                return ['btn', this.active ? 'btn-primary' : 'btn-default'];
+                return ['btn', this.active ? 'btn-primary' : 'btn-default']
             },
 
             endpoint() {
-                return '/replies/' + this.reply.id + '/favorites';
+                return '/replies/' + this.reply.id + '/favorites'
             }
         },
 
         methods: {
             toggle() {
-                return this.active ? this.destroy() : this.create();
+                return this.active ? this.destroy() : this.create()
             },
 
             create() {
-                axios.post(this.endpoint);
-                this.active = true;
-                this.count++;
+                axios.post(this.endpoint)
+                this.active = true
+                this.count++
             },
 
             destroy() {
-                axios.delete(this.endpoint);
-                this.active = false;
-                this.count--;
+                axios.delete(this.endpoint)
+                this.active = false
+                this.count--
             }
         }
     }

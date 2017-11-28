@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-    import Favorite from './Favorite.vue';
+    import Favorite from './Favorite.vue'
 
     export default {
         props: ['reply'],
@@ -52,36 +52,36 @@
         },
         created() {
             window.events.$on('best-replies-selected', id => {
-                this.isBest = (id === this.id);
-            });
+                this.isBest = (id === this.id)
+            })
         },
         methods: {
             update() {
                 axios.patch('/replies/' + this.reply.id, {
                     body: this.body
-                });
+                })
 
-                this.editing = false;
-                this.previousBody = this.body;
+                this.editing = false
+                this.previousBody = this.body
 
-                flash('Updated!');
+                flash('Updated!')
             },
 
             destroy() {
-                axios.delete('/replies/' + this.reply.id);
+                axios.delete('/replies/' + this.reply.id)
 
-                this.$emit('deleted', this.reply.id);
+                this.$emit('deleted', this.reply.id)
 
             },
 
             cancel() {
-                this.body = this.previousBody;
-                this.editing = false;
+                this.body = this.previousBody
+                this.editing = false
             },
 
             markAsBest() {
-                axios.post('/replies/' + this.reply.id + '/best');
-                window.events.$emit('best-replies-selected', this.reply.id);
+                axios.post('/replies/' + this.reply.id + '/best')
+                window.events.$emit('best-replies-selected', this.reply.id)
             }
         }
     }

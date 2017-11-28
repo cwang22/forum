@@ -21,7 +21,6 @@
         methods: {
             toggle() {
                 axios[(this.active ? 'delete' : 'post')](location.pathname + '/subscriptions')
-
                 this.active =  !this.active
             }
         }

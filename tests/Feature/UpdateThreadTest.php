@@ -10,13 +10,6 @@ class UpdateThreadTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->withExceptionHandling()->signIn();
-    }
-
     /** @test */
     public function a_thread_can_be_updated()
     {
@@ -47,6 +40,13 @@ class UpdateThreadTest extends TestCase
             'title' => 'new title',
             'body' => 'new body'
         ])->assertStatus(403);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->withExceptionHandling()->signIn();
     }
 
 }

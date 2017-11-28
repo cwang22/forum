@@ -8,11 +8,6 @@ class Activity extends Model
 {
     protected $guarded = [];
 
-    public function subject()
-    {
-        return $this->morphTo();
-    }
-
     /**
      * Fetch an activity feed for the given user.
      *
@@ -30,5 +25,10 @@ class Activity extends Model
             ->groupBy(function ($activity) {
                 return $activity->created_at->format('Y-m-d');
             });
+    }
+
+    public function subject()
+    {
+        return $this->morphTo();
     }
 }

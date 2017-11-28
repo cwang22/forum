@@ -131,6 +131,16 @@ class Thread extends Model
     }
 
     /**
+     * A thread can have many subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(ThreadSubscription::class);
+    }
+
+    /**
      * Unsubscribe a user from the thread.
      *
      * @param null $userId
@@ -143,16 +153,6 @@ class Thread extends Model
         ])->delete();
 
         return $this;
-    }
-
-    /**
-     * A thread can have many subscriptions.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subscriptions()
-    {
-        return $this->hasMany(ThreadSubscription::class);
     }
 
     /**

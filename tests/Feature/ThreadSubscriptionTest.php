@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ThreadSubscriptionTest extends TestCase
 {
@@ -15,7 +15,7 @@ class ThreadSubscriptionTest extends TestCase
     {
         $this->signIn();
         $thread = create(Thread::class);
-        $this->post($thread->path().'/subscriptions');
+        $this->post($thread->path() . '/subscriptions');
         $this->assertCount(1, $thread->subscriptions);
     }
 
@@ -25,7 +25,7 @@ class ThreadSubscriptionTest extends TestCase
         $this->signIn();
         $thread = create(Thread::class);
         $thread->subscribe();
-        $this->delete($thread->path().'/subscriptions');
+        $this->delete($thread->path() . '/subscriptions');
         $this->assertCount(0, $thread->subscriptions);
     }
 }

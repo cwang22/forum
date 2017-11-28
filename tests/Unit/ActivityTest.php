@@ -1,12 +1,13 @@
 <?php
+
 namespace Tests\Feature;
 
 use App\Activity;
 use App\Reply;
 use App\Thread;
 use Carbon\Carbon;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ActivityTest extends TestCase
 {
@@ -17,7 +18,7 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
         $thread = create(Thread::class);
-        $this->assertDatabaseHas('activities',[
+        $this->assertDatabaseHas('activities', [
             'type' => 'created_thread',
             'user_id' => auth()->id(),
             'subject_id' => $thread->id,

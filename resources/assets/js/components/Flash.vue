@@ -15,28 +15,28 @@
         },
         created() {
             if (this.message) {
-                this.flash();
+                this.flash()
             }
             window.events.$on(
                 'flash', data => this.flash(data)
-            );
+            )
         },
         methods: {
             flash(data) {
                 if (data) {
-                    this.body = data.message;
-                    this.level = data.level;
+                    this.body = data.message
+                    this.level = data.level
                 }
-                this.show = true;
-                this.hide();
+                this.show = true
+                this.hide()
             },
             hide() {
                 setTimeout(() => {
-                    this.show = false;
-                }, 3000);
+                    this.show = false
+                }, 3000)
             }
         }
-    };
+    }
 </script>
 
 <style>

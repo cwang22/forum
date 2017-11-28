@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Thread;
-use Illuminate\Http\Request;
 
 class ThreadSubscriptionsController extends Controller
 {

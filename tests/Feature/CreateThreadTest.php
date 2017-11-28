@@ -15,17 +15,6 @@ class CreateThreadTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        app()->singleton(Recaptcha::class, function () {
-            return Mockery::mock(Recaptcha::class, function ($m) {
-                $m->shouldReceive('passes')->andReturn(true);
-            });
-        });
-    }
-
     /** @test */
     public function a_guest_cannot_create_new_thread()
     {
@@ -44,6 +33,17 @@ class CreateThreadTest extends TestCase
         return $this->get($response->headers->get('Location'))
             ->assertSee('some title')
             ->assertSee('some body');
+    }
+
+    /**
+     * @param array $overrides
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    private function publishThread($overrides = [])
+    {
+        $this->withExceptionHandling()->signIn();
+        $thread = make(Thread::class, $overrides);
+        return $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
     }
 
     /** @test */
@@ -126,14 +126,14 @@ class CreateThreadTest extends TestCase
         $this->assertEquals(0, Activity::count());
     }
 
-    /**
-     * @param array $overrides
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-    private function publishThread($overrides = [])
+    protected function setUp()
     {
-        $this->withExceptionHandling()->signIn();
-        $thread = make(Thread::class, $overrides);
-        return $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
+        parent::setUp();
+
+        app()->singleton(Recaptcha::class, function () {
+            return Mockery::mock(Recaptcha::class, function ($m) {
+                $m->shouldReceive('passes')->andReturn(true);
+            });
+        });
     }
 }

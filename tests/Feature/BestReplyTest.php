@@ -10,12 +10,12 @@ use Tests\TestCase;
 class BestReplyTest extends TestCase
 {
     use DatabaseMigrations;
-    
+
     /** @test */
     public function a_thread_owner_can_mark_best_reply()
     {
         $this->signIn();
-        $thread = create(Thread::class,[
+        $thread = create(Thread::class, [
             'user_id' => auth()->id()
         ]);
         $replies = create(Reply::class, [

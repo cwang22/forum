@@ -27,25 +27,25 @@
         },
         computed: {
             shouldPaginate() {
-                return !!this.prev || !!this.next;
+                return !!this.prev || !!this.next
             }
         },
         watch: {
             dataSet() {
-                this.page = this.dataSet.current_page;
-                this.prev = this.dataSet.prev_page_url;
-                this.next = this.dataSet.next_page_url;
+                this.page = this.dataSet.current_page
+                this.prev = this.dataSet.prev_page_url
+                this.next = this.dataSet.next_page_url
             },
             page() {
-                this.broadcast();
+                this.broadcast()
             }
         },
         methods: {
             broadcast() {
-                return this.$emit('changed', this.page).changeURL();
+                return this.$emit('changed', this.page).changeURL()
             },
             changeURL() {
-                history.pushState(null, null, '?page=' + this.page);
+                history.pushState(null, null, '?page=' + this.page)
             }
         }
     }

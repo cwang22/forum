@@ -12,7 +12,7 @@
     </div>
 </template>
 <script>
-    import ImageUpload from './ImageUpload.vue';
+    import ImageUpload from './ImageUpload.vue'
 
     export default {
         props: ['user'],
@@ -26,22 +26,22 @@
         },
         computed: {
             canUpdate() {
-                return this.authorize(user => user.id === this.user.id);
+                return this.authorize(user => user.id === this.user.id)
             }
         },
         methods: {
             onLoad(avatar) {
-                this.avatar = avatar.src;
-                this.persist(avatar.file);
+                this.avatar = avatar.src
+                this.persist(avatar.file)
             },
 
             persist(avatar) {
-                const data = new FormData();
-                data.append('avatar', avatar);
+                const data = new FormData()
+                data.append('avatar', avatar)
                 axios.post(`/api/users/${this.user.name}/avatar`, data)
                     .then(() => {
-                        flash('Avatar Uploaded.');
-                    });
+                        flash('Avatar Uploaded.')
+                    })
             }
         }
     }

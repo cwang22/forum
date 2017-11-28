@@ -13,15 +13,6 @@ class TrendingTest extends TestCase
 
     protected $trending;
 
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->trending = new Trending();
-
-        $this->trending->reset();
-    }
-
     /** @test */
     public function it_increments_a_score_each_time_a_thread_is_visited()
     {
@@ -32,6 +23,15 @@ class TrendingTest extends TestCase
 
         $this->assertCount(1, $trending = $this->trending->get());
         $this->assertEquals($thread->title, $trending[0]->title);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->trending = new Trending();
+
+        $this->trending->reset();
     }
 
 }

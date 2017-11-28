@@ -37,6 +37,23 @@ class ThreadsController extends Controller
     }
 
     /**
+     * Get filtered threads
+     *
+     * @param Channel $channel
+     * @param ThreadFilters $filters
+     * @return mixed
+     */
+    private function getThreads(Channel $channel, ThreadFilters $filters)
+    {
+        $threads = Thread::latest()->filter($filters);
+
+        if ($channel->exists) {
+            $threads->where('channel_id', $channel->id);
+        }
+        return $threads->paginate(25);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -129,23 +146,5 @@ class ThreadsController extends Controller
         ]));
 
         return $thread;
-    }
-
-
-    /**
-     * Get filtered threads
-     *
-     * @param Channel $channel
-     * @param ThreadFilters $filters
-     * @return mixed
-     */
-    private function getThreads(Channel $channel, ThreadFilters $filters)
-    {
-        $threads = Thread::latest()->filter($filters);
-
-        if ($channel->exists) {
-            $threads->where('channel_id', $channel->id);
-        }
-        return $threads->paginate(25);
     }
 }

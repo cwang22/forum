@@ -1,10 +1,11 @@
 <?php
+
 namespace Tests\Feature;
 
 use App\Channel;
 use App\Thread;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ChannelTest extends TestCase
 {

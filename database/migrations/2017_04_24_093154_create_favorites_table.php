@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFavoritesTable extends Migration
 {
@@ -17,10 +17,10 @@ class CreateFavoritesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('favorited_id');
-            $table->string('favorited_type',50);
+            $table->string('favorited_type', 50);
             $table->timestamps();
 
-            $table->unique(['favorited_id','user_id','favorited_type']);
+            $table->unique(['favorited_id', 'user_id', 'favorited_type']);
         });
     }
 

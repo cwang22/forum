@@ -16,10 +16,15 @@ class Trending
         return array_map('json_decode', Redis::zrevrange($this->cacheKey(), 0, 4));
     }
 
+    public function cacheKey()
+    {
+        return app()->environment('testing') ? 'test_trending_thread' : 'trending_thread';
+    }
+
     /**
+     * Push the thread up in trending list.
      *
-     *
-     * @param Thread $threads
+     * @param Thread $thread
      */
     public function push(Thread $thread)
     {
@@ -29,11 +34,9 @@ class Trending
         ]));
     }
 
-    public function cacheKey()
-    {
-        return app()->environment('testing') ? 'test_trending_thread' : 'trending_thread';
-    }
-
+    /**
+     * Reset cache.
+     */
     public function reset()
     {
         Redis::del($this->cacheKey());

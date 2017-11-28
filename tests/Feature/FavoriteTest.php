@@ -1,9 +1,10 @@
 <?php
+
 namespace Tests\Feature;
 
 use App\Reply;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class FavoriteTest extends TestCase
 {
@@ -22,7 +23,7 @@ class FavoriteTest extends TestCase
     {
         $this->signIn();
         $reply = create(Reply::class);
-        $this->post('/replies/'.$reply->id.'/favorites');
+        $this->post('/replies/' . $reply->id . '/favorites');
         $this->assertCount(1, $reply->favorites);
     }
 
@@ -32,7 +33,7 @@ class FavoriteTest extends TestCase
         $this->signIn();
         $reply = create(Reply::class);
         $reply->favorite();
-        $this->delete('/replies/'.$reply->id.'/favorites');
+        $this->delete('/replies/' . $reply->id . '/favorites');
         $this->assertCount(0, $reply->favorites);
     }
 

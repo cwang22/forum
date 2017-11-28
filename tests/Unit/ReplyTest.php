@@ -35,7 +35,7 @@ class ReplyTest extends TestCase
 
         $this->assertEquals(['JohnDoe', 'JaneDoe'], $reply->mentionedUsers());
     }
-    
+
     /** @test */
     public function it_wraps_mentioned_users_in_body()
     {

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 
-
-use App\User;
-
 class UserNotificationsController extends Controller
 {
 

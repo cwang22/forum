@@ -11,17 +11,9 @@ trait Favoritable
      */
     public static function bootFavoritable()
     {
-        static::deleting(function($model) {
+        static::deleting(function ($model) {
             $model->favorites->each->delete();
         });
-    }
-    /**
-     * Determine if the reply has been favorited by current user
-     * @return bool
-     */
-    public function isFavorited()
-    {
-        return ! ! $this->favorites->where('user_id', auth()->id())->count();
     }
 
     /**
@@ -44,6 +36,15 @@ trait Favoritable
     }
 
     /**
+     * Determine if the reply has been favorited by current user
+     * @return bool
+     */
+    public function isFavorited()
+    {
+        return !!$this->favorites->where('user_id', auth()->id())->count();
+    }
+
+    /**
      * Favorite the current model.
      *
      * @return Model
@@ -58,15 +59,6 @@ trait Favoritable
     }
 
     /**
-     * Unfavorite the current model
-     */
-    public function unfavorite()
-    {
-        $attributes = ['user_id' => auth()->id()];
-        $this->favorites()->where($attributes)->get()->each->delete();
-    }
-
-    /**
      * a reply has many favorites
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
@@ -74,5 +66,14 @@ trait Favoritable
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorited');
+    }
+
+    /**
+     * Unfavorite the current model
+     */
+    public function unfavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+        $this->favorites()->where($attributes)->get()->each->delete();
     }
 }
