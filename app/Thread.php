@@ -223,4 +223,9 @@ class Thread extends Model
 
         return $this;
     }
+
+    public function toSearchableArray()
+    {
+        return $this->toArray() + ['path' => $this->path()];
+    }
 }
