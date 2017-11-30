@@ -9,16 +9,6 @@ use App\User;
 class NotifyMentionedUsers
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param  ThreadReceivedNewReply $event

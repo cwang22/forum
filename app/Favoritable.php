@@ -59,7 +59,7 @@ trait Favoritable
     }
 
     /**
-     * a reply has many favorites
+     * A model has many favorites
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

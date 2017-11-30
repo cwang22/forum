@@ -20,7 +20,7 @@ class SearchController extends Controller
         }
 
         return view('threads.search',[
-            'query' => request('q')
+            'trending' => $trending->get()
         ]);
     }
 }

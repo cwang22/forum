@@ -44,6 +44,13 @@
                             <ais-refinement-list attribute-name="channel.name"></ais-refinement-list>
                         </div>
                     </div>
+                    <ul class="list-group">
+                        @foreach($trending as $thread)
+                            <li class="list-group-item">
+                                <a href="{{ $thread->path }}">{{ $thread->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </ais-index>
         </div>
