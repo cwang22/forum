@@ -35,6 +35,7 @@ Vue.component('flash', require('./components/Flash.vue'))
 Vue.component('user-notifications', require('./components/UserNotifications.vue'))
 Vue.component('thread-view', require('./pages/Thread.vue'))
 Vue.component('avatar-form', require('./components/AvatarFrom.vue'))
+Vue.component('wysiwyg', require('./components/Wysiwyg'))
 
 window.events = new Vue()
 
