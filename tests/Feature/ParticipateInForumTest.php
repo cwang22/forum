@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Reply;
 use App\Thread;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -100,5 +101,13 @@ class ParticipateInForumTest extends TestCase
         $reply = make(Reply::class);
         $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(200);
         $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(429);
+    }
+
+    /** @test */
+    public function only_user_confirmed_email_address_can_see_create_thread_page()
+    {
+        $user = create(User::class, ['confirmed' => false]);
+        $this->signIn($user);
+        $this->get('threads/create')->assertRedirect();
     }
 }
