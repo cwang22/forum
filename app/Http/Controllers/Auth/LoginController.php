@@ -76,9 +76,10 @@ class LoginController extends Controller
         if ($user->exists) return $user;
 
         $user->fill([
-            'name' => $githubUser->nickname,
+            'name' => $githubUser->name,
             'email' => $githubUser->email,
-            'avatar_path' => $githubUser->avatar
+            'avatar_path' => $githubUser->avatar,
+            'github_id' => $githubUser->id
         ])->save();
 
         return $user;
