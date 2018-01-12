@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Stevebauman\Purify\Facades\Purify;
 
 class Reply extends Model
 {
@@ -119,5 +120,10 @@ class Reply extends Model
     public function isBest()
     {
         return $this->id == $this->thread->best_reply_id;
+    }
+
+    public function getBodyAttribute($body)
+    {
+        return Purify::clean($body);
     }
 }

@@ -43,4 +43,11 @@ class ReplyTest extends TestCase
 
         $this->assertEquals('Hello <a href="/profiles/JohnDoe">@JohnDoe</a>', $reply->body);
     }
+
+    /** @test */
+    public function a_reply_body_is_sanitized_automatically()
+    {
+        $thread = make(Reply::class, ['body' => '<script>alert("hi")</script><p>this is good</p>']);
+        $this->assertEquals('<p>this is good</p>', $thread->body);
+    }
 }

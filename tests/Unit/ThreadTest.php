@@ -114,9 +114,17 @@ class ThreadTest extends TestCase
         });
     }
 
+    /** @test */
+    public function a_threads_body_is_sanitized_automatically()
+    {
+        $thread = make(Thread::class, ['body' => '<script>alert("hi")</script><p>this is good</p>']);
+        $this->assertEquals('<p>this is good</p>', $thread->body);
+    }
+
     protected function setUp()
     {
         parent::setUp();
         $this->thread = create(Thread::class);
     }
+
 }
