@@ -66535,7 +66535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         toggleLock: function toggleLock() {
             var uri = '/locked-threads/' + this.thread.slug;
-            axios[this.lock ? 'delete' : 'post'](uri);
+            axios[this.locked ? 'delete' : 'post'](uri);
             this.locked = !this.locked;
         },
         update: function update() {

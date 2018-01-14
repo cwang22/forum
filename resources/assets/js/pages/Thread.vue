@@ -21,7 +21,7 @@
         methods: {
             toggleLock() {
                 const uri = `/locked-threads/${this.thread.slug}`
-                axios[this.lock ? 'delete' : 'post'](uri)
+                axios[this.locked ? 'delete' : 'post'](uri)
                 this.locked = !this.locked
             },
 
