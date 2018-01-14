@@ -3,7 +3,9 @@
         <div class="panel-heading">
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profiles/' + reply.owner.name" v-text="reply.owner.name"></a>
+                    <a :href="'/profiles/' + reply.owner.name">
+                        {{ reply.owner.name }} ( {{ reply.owner.reputation}} XP )
+                    </a>
                     said
                 </h5>
                 <div v-if="signedIn">
