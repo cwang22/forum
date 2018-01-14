@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('confirmed')->default(false);
             $table->string('confirm_token', 25)->nullable()->unique();
             $table->string('github_id')->nullable()->unique();
+            $table->unsignedInteger('reputation')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

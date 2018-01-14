@@ -40,11 +40,15 @@ class Thread extends Model
             $thread->update([
                 'slug' => $thread->title
             ]);
+
+            Reputation::award($thread->owner, Reputation::THREAD_PUBLISHED);
         });
 
         static::deleting(function (Thread $thread) {
             $thread->replies->each->delete();
         });
+
+
     }
 
 
@@ -223,6 +227,8 @@ class Thread extends Model
     {
         $this->best_reply_id = $reply->id;
         $this->save();
+
+        Reputation::award($reply->owner, Reputation::BEST_REPLY);
 
         return $this;
     }
