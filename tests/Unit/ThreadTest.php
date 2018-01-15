@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Channel;
 use App\Notifications\ThreadWasUpdated;
+use App\Reply;
 use App\Thread;
 use App\User;
 use Carbon\Carbon;
@@ -119,6 +120,24 @@ class ThreadTest extends TestCase
     {
         $thread = make(Thread::class, ['body' => '<script>alert("hi")</script><p>this is good</p>']);
         $this->assertEquals('<p>this is good</p>', $thread->body);
+    }
+    
+    /** @test */
+    public function it_can_have_a_best_reply()
+    {
+        $this->signIn();
+        $thread = create(Thread::class, [
+            'user_id' => auth()->id()
+        ]);
+
+        $reply = $thread->addReply([
+            'body' => 'Foobar',
+            'user_id' => create(User::class)->id
+        ]);
+
+        $thread->markBestReply($reply);
+
+        $this->assertEquals($reply->id, $thread->bestReply->id);
     }
 
     protected function setUp()

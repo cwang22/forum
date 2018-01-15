@@ -41,16 +41,15 @@ class Thread extends Model
                 'slug' => $thread->title
             ]);
 
-            Reputation::award($thread->owner, Reputation::THREAD_PUBLISHED);
+            Reputation::gain($thread->owner, Reputation::THREAD_PUBLISHED);
         });
 
         static::deleting(function (Thread $thread) {
             $thread->replies->each->delete();
+
+            Reputation::lose($thread->owner, Reputation::THREAD_PUBLISHED);
         });
-
-
     }
-
 
     /**
      * A thread belongs to a user.
@@ -70,6 +69,26 @@ class Thread extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class);
+    }
+
+    /**
+     * A thread consists of replies.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    /**
+     * A Thread has a best reply.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function bestReply()
+    {
+        return $this->hasOne(Reply::class);
     }
 
     /**
@@ -96,16 +115,6 @@ class Thread extends Model
         event(new ThreadReceivedNewReply($reply));
 
         return $reply;
-    }
-
-    /**
-     * A thread consists of replies.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
     }
 
     /**
@@ -198,7 +207,7 @@ class Thread extends Model
     /**
      * Set the slug attribute
      *
-     * @param $value
+     * @param string $value
      */
     public function setSlugAttribute($value)
     {
@@ -223,21 +232,53 @@ class Thread extends Model
         return $slug;
     }
 
+    /**
+     * Mark the reply as best.
+     *
+     * @param Reply $reply
+     * @return $this
+     */
     public function markBestReply(Reply $reply)
     {
+        if ($this->hasBestReply()) {
+            Reputation::lose($this->bestReply->owner, Reputation::BEST_REPLY);
+        }
+
         $this->best_reply_id = $reply->id;
         $this->save();
 
-        Reputation::award($reply->owner, Reputation::BEST_REPLY);
+        Reputation::gain($reply->owner, Reputation::BEST_REPLY);
 
         return $this;
     }
 
+
+    /**
+     * Determine if the thread has a best reply.
+     *
+     * @return bool
+     */
+    public function hasBestReply()
+    {
+        return !is_null($this->best_reply_id);
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
     public function toSearchableArray()
     {
         return $this->toArray() + ['path' => $this->path()];
     }
 
+    /**
+     * Access the body attribute.
+     *
+     * @param string $body
+     * @return string
+     */
     public function getBodyAttribute($body)
     {
         return Purify::clean($body);

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: cwang
- * Date: 15/01/2018
- * Time: 10:06
- */
-
 namespace App;
 
 
@@ -15,8 +8,13 @@ class Reputation
     const REPLY_POSTED = 2;
     const BEST_REPLY = 50;
 
-    public static function award($user, $points)
+    public static function gain($user, $points)
     {
         $user->increment('reputation', $points);
+    }
+
+    public static function lose($user, $points)
+    {
+        $user->decrement('reputation', $points);
     }
 }
