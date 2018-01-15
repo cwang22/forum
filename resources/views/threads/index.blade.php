@@ -7,16 +7,17 @@
                 @include('threads._list')
             </div>
 
-            @if(count($trending))
-                <div class="col-md-4">
-                    <form action="/threads/search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="q">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default">Search</button>
-                        </div>
-                    </form>
+            <div class="col-md-4">
+                <form action="/threads/search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="q">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </div>
+                </form>
+
+                @if(count($trending))
                     <ul class="list-group">
                         @foreach($trending as $thread)
                             <li class="list-group-item">
@@ -24,8 +25,8 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 @endsection
