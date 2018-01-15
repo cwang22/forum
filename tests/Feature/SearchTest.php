@@ -14,6 +14,10 @@ class SearchTest extends TestCase
     /** @test */
     public function a_user_can_search_threads()
     {
+        if ( ! config('scout.algolia.id')) {
+            $this->markTestSkipped("Algolia is not configured.");
+        }
+
         config(['scout.driver' => 'algolia']);
 
         create(Thread::class, [], 2);
