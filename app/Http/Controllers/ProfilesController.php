@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
 use App\User;
+use App\Activity;
 
 class ProfilesController extends Controller
 {
     /**
-     * show profile for given user
+     * show profile for given user.
      *
      * @param User $user
      * @return \Illuminate\Http\Response

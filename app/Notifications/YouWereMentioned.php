@@ -22,7 +22,6 @@ class YouWereMentioned extends Notification
         $this->reply = $reply;
     }
 
-
     /**
      * Get the notification's delivery channels.
      *
@@ -57,7 +56,7 @@ class YouWereMentioned extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => $this->reply->owner->name . ' mentioned you in ' . $this->reply->thread->title,
+            'message' => $this->reply->owner->name.' mentioned you in '.$this->reply->thread->title,
             'link' => $this->reply->thread->path()
         ];
     }

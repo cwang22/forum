@@ -2,18 +2,18 @@
 
 namespace App;
 
-use App\Events\ThreadReceivedNewReply;
-use app\Filters\ThreadFilters;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use app\Filters\ThreadFilters;
+use App\Events\ThreadReceivedNewReply;
 use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
     use RecordActivity, Searchable;
     /**
-     * mass assignment protections
+     * mass assignment protections.
      *
      * @var array
      */
@@ -62,7 +62,7 @@ class Thread extends Model
     }
 
     /**
-     * A thread belongs to a channel
+     * A thread belongs to a channel.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -170,9 +170,9 @@ class Thread extends Model
     }
 
     /**
-     * Determine if the current user is subscribed to the thread
+     * Determine if the current user is subscribed to the thread.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsSubscribedAttribute()
     {
@@ -205,7 +205,7 @@ class Thread extends Model
     }
 
     /**
-     * Set the slug attribute
+     * Set the slug attribute.
      *
      * @param string $value
      */
@@ -219,7 +219,7 @@ class Thread extends Model
     }
 
     /**
-     * Get an uniqueSlug
+     * Get an uniqueSlug.
      *
      * @param $slug
      * @return string
@@ -229,6 +229,7 @@ class Thread extends Model
         if (static::whereSlug($slug)->exists()) {
             $slug = "{$slug}-{$this->id}";
         }
+
         return $slug;
     }
 
@@ -252,7 +253,6 @@ class Thread extends Model
         return $this;
     }
 
-
     /**
      * Determine if the thread has a best reply.
      *
@@ -260,7 +260,7 @@ class Thread extends Model
      */
     public function hasBestReply()
     {
-        return !is_null($this->best_reply_id);
+        return ! is_null($this->best_reply_id);
     }
 
     /**

@@ -3,15 +3,15 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
     use Favoritable, RecordActivity;
 
     /**
-     * mass assignment protections
+     * mass assignment protections.
      *
      * @var array
      */
@@ -46,7 +46,6 @@ class Reply extends Model
         });
     }
 
-
     /**
      * A reply belongs to a user.
      *
@@ -78,7 +77,7 @@ class Reply extends Model
     }
 
     /**
-     * users' names mentioned in reply body
+     * users' names mentioned in reply body.
      * @return array
      */
     public function mentionedUsers()
@@ -88,18 +87,17 @@ class Reply extends Model
         return $matches[1];
     }
 
-
     /**
      * Get the path to the reply.
      * @return string
      */
     public function path()
     {
-        return $this->thread->path() . "#reply-{$this->id}";
+        return $this->thread->path()."#reply-{$this->id}";
     }
 
     /**
-     * Set the body attribute
+     * Set the body attribute.
      * @param string $body
      */
     public function setBodyAttribute($body)
@@ -119,7 +117,7 @@ class Reply extends Model
     /**
      * Determine if the reply is marked as best reply.
      *
-     * @return boolean
+     * @return bool
      */
     public function isBest()
     {

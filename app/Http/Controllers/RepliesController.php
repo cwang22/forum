@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Http\Requests\CreatePostRequest;
 use App\Reply;
 use App\Thread;
-
+use App\Channel;
+use App\Http\Requests\CreatePostRequest;
 
 class RepliesController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         $this->middleware('auth', ['except' => 'index']);
     }
@@ -26,7 +25,7 @@ class RepliesController extends Controller
     }
 
     /**
-     * Store a new reply
+     * Store a new reply.
      *
      * @param Channel $channel
      * @param Thread $thread
@@ -53,6 +52,7 @@ class RepliesController extends Controller
         if (request()->expectsJson()) {
             return response()->json(['status' => 'Success']);
         }
+
         return back();
     }
 

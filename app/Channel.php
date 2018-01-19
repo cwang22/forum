@@ -17,7 +17,7 @@ class Channel extends Model
     }
 
     /**
-     * a channel consists of threads
+     * a channel consists of threads.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

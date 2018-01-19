@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
 class UserNotificationsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');

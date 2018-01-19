@@ -32,12 +32,11 @@ abstract class Filters
      */
     public function __construct(Request $request)
     {
-
         $this->request = $request;
     }
 
     /**
-     * apply registered filters
+     * apply registered filters.
      *
      * @param $builder
      * @return \Illuminate\Database\Eloquent\Builder
@@ -50,6 +49,7 @@ abstract class Filters
                 $this->$filter($value);
             }
         }
+
         return $this->builder;
     }
 

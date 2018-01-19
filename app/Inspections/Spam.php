@@ -2,7 +2,6 @@
 
 namespace App\Inspections;
 
-
 class Spam
 {
     /**
@@ -22,10 +21,10 @@ class Spam
      */
     public function detect($body)
     {
-        foreach($this->inspections as $inspection) {
+        foreach ($this->inspections as $inspection) {
             app($inspection)->detect($body);
         }
+
         return false;
     }
-
 }
