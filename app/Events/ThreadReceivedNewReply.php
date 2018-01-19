@@ -3,14 +3,14 @@
 namespace App\Events;
 
 use App\Reply;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class ThreadReceivedNewReply
 {
     use Dispatchable, SerializesModels;
 
-    /** @var  Reply */
+    /** @var Reply */
     public $reply;
 
     /**
@@ -21,6 +21,4 @@ class ThreadReceivedNewReply
     {
         $this->reply = $reply;
     }
-
-
 }

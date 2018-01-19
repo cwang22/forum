@@ -8,7 +8,7 @@ class Favorite extends Model
 {
     use RecordActivity;
     /**
-     * mass assignment protections
+     * mass assignment protections.
      *
      * @var array
      */

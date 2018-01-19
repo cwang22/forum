@@ -6,7 +6,7 @@ use App\Reply;
 
 class FavoritesController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -25,7 +25,7 @@ class FavoritesController extends Controller
     }
 
     /**
-     * Delete the favorite
+     * Delete the favorite.
      * @param Reply $reply
      */
     public function destroy(Reply $reply)

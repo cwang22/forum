@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\ThrottleException;
 use App\Reply;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use App\Exceptions\ThrottleException;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CreatePostRequest extends FormRequest
 {
@@ -23,7 +23,6 @@ class CreatePostRequest extends FormRequest
     {
         throw new ThrottleException('You are replying too frequently. Please take a break');
     }
-
 
     /**
      * Get the validation rules that apply to the request.

@@ -3,8 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -70,6 +70,7 @@ class User extends Authenticatable
         $this->confirmed = true;
         $this->confirm_token = null;
         $this->save();
+
         return $this;
     }
 
@@ -93,6 +94,7 @@ class User extends Authenticatable
             $this->visitedThreadCacheKey($thread),
             Carbon::now()
         );
+
         return $this;
     }
 
@@ -108,17 +110,17 @@ class User extends Authenticatable
     }
 
     /**
-     *  Get the avatar_path attribute
+     *  Get the avatar_path attribute.
      *
      * @return string
      */
     public function getAvatarPathAttribute($avatar)
     {
-        return asset($avatar ? 'storage/' . $avatar : 'images/avatars/default.png');
+        return asset($avatar ? 'storage/'.$avatar : 'images/avatars/default.png');
     }
 
     /**
-     * Determine if the user is admin
+     * Determine if the user is admin.
      *
      * @return bool
      */

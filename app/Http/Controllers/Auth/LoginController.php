@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -34,7 +34,7 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct ()
+    public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
@@ -44,7 +44,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider ()
+    public function redirectToProvider()
     {
         return Socialite::driver('github')->redirect();
     }
@@ -54,7 +54,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback ()
+    public function handleProviderCallback()
     {
         $user = $this->FindOrCreateGithubUser(Socialite::driver('github')->user());
 
@@ -64,16 +64,18 @@ class LoginController extends Controller
     }
 
     /**
-     * Find or create a user for the github account
+     * Find or create a user for the github account.
      *
      * @param $githubUser
      * @return User $user
      */
-    protected function FindOrCreateGithubUser ($githubUser)
+    protected function FindOrCreateGithubUser($githubUser)
     {
         $user = User::firstOrNew(['github_id' => $githubUser->id]);
 
-        if ($user->exists) return $user;
+        if ($user->exists) {
+            return $user;
+        }
 
         $user->fill([
             'name' => $githubUser->name,

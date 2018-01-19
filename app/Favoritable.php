@@ -19,7 +19,7 @@ trait Favoritable
     /**
      * Get the number of favorites.
      *
-     * @return integer
+     * @return int
      */
     public function getFavoritesCountAttribute()
     {
@@ -27,7 +27,7 @@ trait Favoritable
     }
 
     /**
-     * Get if the reply has been favorited by current user
+     * Get if the reply has been favorited by current user.
      * @return bool
      */
     public function getIsFavoritedAttribute()
@@ -36,12 +36,12 @@ trait Favoritable
     }
 
     /**
-     * Determine if the reply has been favorited by current user
+     * Determine if the reply has been favorited by current user.
      * @return bool
      */
     public function isFavorited()
     {
-        return !!$this->favorites->where('user_id', auth()->id())->count();
+        return (bool) $this->favorites->where('user_id', auth()->id())->count();
     }
 
     /**
@@ -52,14 +52,13 @@ trait Favoritable
     public function favorite()
     {
         $attributes = ['user_id' => auth()->id()];
-        if (!$this->favorites()->where($attributes)->exists()) {
+        if (! $this->favorites()->where($attributes)->exists()) {
             return $this->favorites()->create($attributes);
         }
-        return null;
     }
 
     /**
-     * A model has many favorites
+     * A model has many favorites.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
@@ -69,7 +68,7 @@ trait Favoritable
     }
 
     /**
-     * Unfavorite the current model
+     * Unfavorite the current model.
      */
     public function unfavorite()
     {

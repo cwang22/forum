@@ -18,6 +18,7 @@ class Administrator
         if (auth()->check() && auth()->user()->isAdmin()) {
             return $next($request);
         }
+
         return abort(403, 'Permission denied.');
     }
 }

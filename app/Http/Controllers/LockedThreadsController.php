@@ -14,7 +14,6 @@ class LockedThreadsController extends Controller
     public function store(Thread $thread)
     {
         $thread->update(['locked' => true]);
-
     }
 
     /**

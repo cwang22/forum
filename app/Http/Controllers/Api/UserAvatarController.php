@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 
 class UserAvatarController extends Controller
 {
-
     /**
-     * Store uploaded avatar
+     * Store uploaded avatar.
      *
      * @return mixed
      */

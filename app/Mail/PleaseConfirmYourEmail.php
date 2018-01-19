@@ -3,10 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class PleaseConfirmYourEmail extends Mailable implements ShouldQueue
 {

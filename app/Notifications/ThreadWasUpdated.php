@@ -18,7 +18,6 @@ class ThreadWasUpdated extends Notification
      */
     protected $reply;
 
-
     /**
      * ThreadWasUpdated constructor.
      * @param Thread $thread
@@ -39,7 +38,6 @@ class ThreadWasUpdated extends Notification
         return ['database'];
     }
 
-
     /**
      * Get the array representation of the notification.
      * @return array
@@ -47,7 +45,7 @@ class ThreadWasUpdated extends Notification
     public function toArray()
     {
         return [
-            'message' => $this->reply->owner->name . ' replied to ' . $this->thread->title,
+            'message' => $this->reply->owner->name.' replied to '.$this->thread->title,
             'link' => $this->reply->path()
         ];
     }

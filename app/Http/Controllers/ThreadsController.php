@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Filters\ThreadFilters;
-use App\Rules\Recaptcha;
 use App\Thread;
+use App\Channel;
 use App\Trending;
+use App\Rules\Recaptcha;
+use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
     }
@@ -37,7 +37,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Get filtered threads
+     * Get filtered threads.
      *
      * @param Channel $channel
      * @param ThreadFilters $filters
@@ -50,6 +50,7 @@ class ThreadsController extends Controller
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
+
         return $threads->paginate(25);
     }
 
