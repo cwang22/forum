@@ -3,7 +3,7 @@
 namespace App;
 
 use Laravel\Scout\Searchable;
-use app\Filters\ThreadFilters;
+use App\Filters\ThreadFilters;
 use App\Events\ThreadReceivedNewReply;
 use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Database\Eloquent\Model;
