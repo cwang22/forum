@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <div v-html="body"></div>
+            <highlight :content="body"></highlight>
     </div>
     <div class="panel-footer" v-if="authorize('owns', thread)">
         <button class="btn btn-xs" @click="editing = true">Edit</button>

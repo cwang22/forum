@@ -1,10 +1,12 @@
 <script>
+    import Highlight from '../components/Highlight.vue'
     import Replies from '../components/Replies.vue'
     import SubscribeButton from '../components/SubscribeButton.vue'
 
+
     export default {
         props: ['thread'],
-        components: {Replies, SubscribeButton},
+        components: {Highlight, Replies, SubscribeButton},
         data() {
             return {
                 title: this.thread.title,
