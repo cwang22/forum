@@ -24,7 +24,6 @@
                 </form>
             @endcan
         </div>
-
     </div>
 </div>
 <div class="panel panel-default" v-else>
