@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
 use App\Channel;
-use App\Trending;
-use App\Rules\Recaptcha;
 use App\Filters\ThreadFilters;
+use App\Rules\Recaptcha;
+use App\Thread;
+use App\Trending;
 
 class ThreadsController extends Controller
 {
@@ -45,7 +45,7 @@ class ThreadsController extends Controller
      */
     private function getThreads(Channel $channel, ThreadFilters $filters)
     {
-        $threads = Thread::latest()->filter($filters);
+        $threads = Thread::latest('pinned')->latest()->filter($filters);
 
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
@@ -65,7 +65,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a thread
      *
      * @param Recaptcha $recaptcha
      * @return \Illuminate\Http\Response
@@ -115,7 +115,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delte a thread
      *
      * @param Channel $channel
      * @param  Thread $thread
@@ -134,6 +134,8 @@ class ThreadsController extends Controller
     }
 
     /**
+     * Update a thread
+     *
      * @param Channel $channel
      * @param Thread $thread
      * @return Thread

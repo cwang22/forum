@@ -24,6 +24,9 @@
                     <button class="btn btn-default" v-if="authorize('isAdmin')" @click="toggleLock"
                             v-text="locked ? 'Unlock' : 'Lock'">Lock
                     </button>
+                    <button class="btn btn-default" v-if="authorize('isAdmin')" @click="togglePin"
+                            v-text="pinned ? 'Unpin' : 'Pin'">Lock
+                    </button>
                 </div>
             </div>
         </div>

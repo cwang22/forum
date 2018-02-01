@@ -14,6 +14,7 @@
                 repliesCount: this.thread.replies_count,
                 editing: false,
                 locked: this.thread.locked,
+                pinned: this.thread.pinned,
                 form: {
                     title: this.thread.title,
                     body: this.thread.body
@@ -25,6 +26,11 @@
                 const uri = `/locked-threads/${this.thread.slug}`
                 axios[this.locked ? 'delete' : 'post'](uri)
                 this.locked = !this.locked
+            },
+            togglePin() {
+                const uri = `/pinned-threads/${this.thread.slug}`
+                axios[this.pinned ? 'delete' : 'post'](uri)
+                this.pinned = !this.pinned
             },
 
             update() {

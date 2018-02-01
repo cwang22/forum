@@ -29,7 +29,8 @@ class Thread extends Model
     protected $appends = ['isSubscribed'];
 
     protected $casts = [
-        'locked' => 'boolean'
+        'locked' => 'boolean',
+        'pinned' => 'boolean'
     ];
 
     public static function boot()

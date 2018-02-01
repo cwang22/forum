@@ -24,6 +24,7 @@ class CreateThreadsTable extends Migration
             $table->unsignedInteger('visits')->default(0);
             $table->unsignedInteger('best_reply_id')->nullable();
             $table->boolean('locked')->default(false);
+            $table->boolean('pinned')->default(false);
             $table->timestamps();
 
             $table->foreign('best_reply_id')

@@ -7,7 +7,7 @@ use App\Reply;
 class BestRepliesController extends Controller
 {
     /**
-     * M    ark the reply as best reply.
+     * Mark the reply as best reply.
      *
      * @param Reply $reply
      */
