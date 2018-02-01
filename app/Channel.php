@@ -7,6 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Channel extends Model
 {
     /**
+     * Attributes that cannot be mass assigned.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Attributes to cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'archived' => 'boolean'
+    ];
+
+    /**
      * Get the route key name for Laravel.
      *
      * @return string
@@ -24,5 +40,16 @@ class Channel extends Model
     public function threads()
     {
         return $this->hasMany(Thread::class);
+    }
+
+    /**
+     * Set the name and slug of the channels.
+     *
+     * @param $name
+     */
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+        $this->attributes['slug'] = str_slug($name);
     }
 }

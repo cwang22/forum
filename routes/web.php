@@ -19,6 +19,10 @@ Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback
 
 Route::get('/home', 'HomeController@index');
 
+Route::post('/channels', 'ChannelsController@store')->name('channels.store')->middleware('admin');
+Route::patch('/channels/{channel}', 'ChannelsController@update')->name('channels.update')->middleware('admin');
+
+
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::get('/threads/search', 'SearchController@show');
 Route::get('/threads/create', 'ThreadsController@create')->middleware('email-confirmed');
@@ -35,10 +39,12 @@ Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->middleware('auth');
 Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->middleware('auth');
+
 Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('replies.destroy');
 Route::patch('/replies/{reply}', 'RepliesController@update');
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
 Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy');
+
 Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
 Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');
 Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
