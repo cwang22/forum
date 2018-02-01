@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Filters\ThreadFilters;
-use App\Rules\Recaptcha;
 use App\Thread;
+use App\Channel;
 use App\Trending;
+use App\Rules\Recaptcha;
+use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
@@ -65,7 +65,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Store a thread
+     * Store a thread.
      *
      * @param Recaptcha $recaptcha
      * @return \Illuminate\Http\Response
@@ -115,7 +115,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Delte a thread
+     * Delte a thread.
      *
      * @param Channel $channel
      * @param  Thread $thread
@@ -134,7 +134,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Update a thread
+     * Update a thread.
      *
      * @param Channel $channel
      * @param Thread $thread
