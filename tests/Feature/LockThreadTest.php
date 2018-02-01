@@ -3,13 +3,12 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LockThreadTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function non_administrator_may_not_lock_a_thread()
@@ -26,7 +25,7 @@ class LockThreadTest extends TestCase
     /** @test */
     public function an_administrator_can_lock_a_thread()
     {
-        $this->signIn(factory(User::class)->states('administrator')->create());
+        $this->signInAdmin();
         $thread = create(Thread::class, [
             'user_id' => auth()->id()
         ]);
@@ -39,7 +38,7 @@ class LockThreadTest extends TestCase
     /** @test */
     public function an_administrator_can_unlock_a_thread()
     {
-        $this->signIn(factory(User::class)->states('administrator')->create());
+        $this->signInAdmin();
         $thread = create(Thread::class, [
             'user_id' => auth()->id(),
             'locked' => true

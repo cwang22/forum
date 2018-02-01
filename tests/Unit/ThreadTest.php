@@ -9,7 +9,7 @@ use App\Thread;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
@@ -17,7 +17,7 @@ class ThreadTest extends TestCase
 {
     /** @var  Thread */
     private $thread;
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function it_has_a_owner()
