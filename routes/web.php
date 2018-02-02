@@ -22,7 +22,6 @@ Route::get('/home', 'HomeController@index');
 Route::post('/channels', 'ChannelsController@store')->name('channels.store')->middleware('admin');
 Route::patch('/channels/{channel}', 'ChannelsController@update')->name('channels.update')->middleware('admin');
 
-
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::get('/threads/search', 'SearchController@show');
 Route::get('/threads/create', 'ThreadsController@create')->middleware('email-confirmed');
