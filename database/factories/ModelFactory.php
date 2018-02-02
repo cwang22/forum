@@ -52,11 +52,11 @@ $factory->define(App\Thread::class, function ($faker) {
 });
 
 $factory->define(App\Channel::class, function ($faker) {
-    $name = $faker->word;
+    $name = $faker->unique()->word;
 
     return [
         'name' => $name,
-        'slug' => $name,
+        'slug' => str_slug($name),
         'archived' => false
     ];
 });

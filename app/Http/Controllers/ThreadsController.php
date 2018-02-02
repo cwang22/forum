@@ -20,6 +20,7 @@ class ThreadsController extends Controller
      *
      * @param Channel $channel
      * @param ThreadFilters $filters
+     * @param Trending $trending
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
@@ -120,6 +121,8 @@ class ThreadsController extends Controller
      * @param Channel $channel
      * @param  Thread $thread
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Channel $channel, Thread $thread)
     {
@@ -139,6 +142,7 @@ class ThreadsController extends Controller
      * @param Channel $channel
      * @param Thread $thread
      * @return Thread
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Channel $channel, Thread $thread)
     {
