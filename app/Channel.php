@@ -60,6 +60,7 @@ class Channel extends Model
     public function archive()
     {
         $this->update(['archived' => true]);
+
         return $this;
     }
 
