@@ -43,13 +43,24 @@ class Channel extends Model
     }
 
     /**
-     * a channel consists of threads.
+     * A channel consists of threads.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function threads()
     {
         return $this->hasMany(Thread::class);
+    }
+
+    /**
+     * Archive the channel.
+     *
+     * @return Channel
+     */
+    public function archive()
+    {
+        $this->update(['archived' => true]);
+        return $this;
     }
 
     /**
