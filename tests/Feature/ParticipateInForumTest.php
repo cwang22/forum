@@ -99,7 +99,7 @@ class ParticipateInForumTest extends TestCase
         $this->signIn();
         $thread = create(Thread::class);
         $reply = make(Reply::class);
-        $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(200);
+        $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(201);
         $this->post($thread->path() . '/replies', $reply->toArray())->assertStatus(429);
     }
 

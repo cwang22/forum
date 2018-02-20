@@ -11,8 +11,9 @@
   },
   "devDependencies": {
     "at.js": "^1.5.3",
-    "axios": "^0.15.3",
-    "bootstrap-sass": "^3.3.7",
+    "axios": "^0.18",
+    "bootstrap": "^4.0.0",
+    "popper.js": "^1.12",
     "cross-env": "^3.2.3",
     "highlight.js": "^9.12.0",
     "jquery": "^3.1.1",
