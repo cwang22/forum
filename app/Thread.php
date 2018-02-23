@@ -133,7 +133,7 @@ class Thread extends Model
     /**
      * Subscribe a user to the thread.
      *
-     * @param Integer $userId
+     * @param int $userId
      * @return $this
      */
     public function subscribe($userId = null)
@@ -158,7 +158,7 @@ class Thread extends Model
     /**
      * Unsubscribe a user from the thread.
      *
-     * @param Integer $userId
+     * @param int $userId
      * @return $this
      */
     public function unsubscribe($userId = null)
