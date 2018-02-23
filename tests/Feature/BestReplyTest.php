@@ -4,11 +4,11 @@ namespace Tests\Feature;
 
 use App\Reply;
 use App\Thread;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class BestReplyTest extends TestCase {
-	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	/** @test */
 	public function a_thread_owner_can_mark_best_reply() {

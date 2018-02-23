@@ -105,7 +105,7 @@ class Thread extends Model
     /**
      * Add a reply to the thread.
      *
-     * @param array $reply
+     * @param Reply $reply
      *
      * @return Model
      */
@@ -133,7 +133,7 @@ class Thread extends Model
     /**
      * Subscribe a user to the thread.
      *
-     * @param null $userId
+     * @param Integer $userId
      * @return $this
      */
     public function subscribe($userId = null)
@@ -158,7 +158,7 @@ class Thread extends Model
     /**
      * Unsubscribe a user from the thread.
      *
-     * @param null $userId
+     * @param Integer $userId
      * @return $this
      */
     public function unsubscribe($userId = null)
