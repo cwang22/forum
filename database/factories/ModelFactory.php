@@ -16,6 +16,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
+        'username' => $faker->unique()->userName,
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
@@ -48,6 +49,23 @@ $factory->define(App\Thread::class, function ($faker) {
         'body' => $faker->paragraph,
         'visits' => 0,
         'locked' => false
+    ];
+});
+
+$factory->state(App\Thread::class, 'from_existing_channels_and_users', function ($faker) {
+    $title = $faker->sentence;
+    return [
+        'user_id' => function () {
+            return \App\User::all()->random()->id;
+        },
+        'channel_id' => function () {
+            return \App\Channel::all()->random()->id;
+        },
+        'title' => $title,
+        'body'  => $faker->paragraph,
+        'visits' => $faker->numberBetween(0, 35),
+        'slug' => str_slug($title),
+        'locked' => $faker->boolean(15)
     ];
 });
 

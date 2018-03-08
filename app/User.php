@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar_path', 'confirm_token', 'github_id'
+        'username', 'name', 'email', 'password', 'avatar_path', 'confirm_token', 'github_id'
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable
      */
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'username';
     }
 
     /**

@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <div class="level">
                 <h5 class="flex">
-                    <a href="{{ route('profile', $reply->owner) }}">{{$reply->owner->name}}</a>
+                    <a href="{{ route('profile', $reply->owner) }}">{{$reply->owner->username}}</a>
                     said {{$reply->created_at->diffForHumans()}}
                 </h5>
                 @if(Auth::check())

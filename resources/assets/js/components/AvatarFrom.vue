@@ -3,7 +3,7 @@
         <div class="level">
             <img :src="avatar" width="50" height="50" class="mr-1">
             <h1>
-                {{ user.name }}
+                {{ user.username }}
                 <small>{{ user.reputation }} XP</small>
             </h1>
         </div>
@@ -41,7 +41,7 @@
             persist(avatar) {
                 const data = new FormData()
                 data.append('avatar', avatar)
-                axios.post(`/api/users/${this.user.name}/avatar`, data)
+                axios.post(`/api/users/${this.user.username}/avatar`, data)
                     .then(() => {
                         flash('Avatar Uploaded.')
                     })

@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-md-4">
                     <p>This thread was published at {{ $thread->created_at->diffForHumans() }}
-                        by {{ $thread->owner->name }}
+                        by {{ $thread->owner->username }}
                         .</p>
 
                     <p><span v-text="repliesCount"></span> comments left.</p>

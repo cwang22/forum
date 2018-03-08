@@ -20,7 +20,7 @@
 
                     <h5>
                         Posted By: <a
-                                href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->name }}</a>
+                                href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->username }}</a>
                     </h5>
                 </div>
 

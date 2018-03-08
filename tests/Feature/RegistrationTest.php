@@ -19,6 +19,7 @@ class RegistrationTest extends TestCase
         Mail::fake();
 
         $this->post(route('register'), [
+            'username' => 'johndoe',
             'name' => 'John',
             'email' => 'john@example.com',
             'password' => '123456123',
@@ -34,6 +35,7 @@ class RegistrationTest extends TestCase
         Mail::fake();
 
         $this->post(route('register'), [
+            'username' => 'johndoe',
             'name' => 'John',
             'email' => 'john@example.com',
             'password' => '123456123',

@@ -15,14 +15,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password')->nullable();
+            $table->string('github_id')->nullable()->unique();
+            $table->string('name')->nullable();
+            $table->unsignedInteger('reputation')->default(0);
             $table->string('avatar_path')->nullable();
             $table->boolean('confirmed')->default(false);
             $table->string('confirm_token', 25)->nullable()->unique();
-            $table->string('github_id')->nullable()->unique();
-            $table->unsignedInteger('reputation')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
