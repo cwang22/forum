@@ -1,37 +1,31 @@
 <template>
-    <div :id="'reply-'+id" class="panel" :class="isBest ? 'panel-success' : 'panel-default'">
-        <div class="panel-heading">
-            <div class="level">
-                <h5 class="flex">
-                    <a :href="'/profiles/' + reply.owner.name">
-                        {{ reply.owner.name }} ( {{ reply.owner.reputation}} XP )
-                    </a>
-                    said
-                </h5>
-                <div v-if="signedIn">
-                    <favorite :reply="reply"></favorite>
-                </div>
-            </div>
+    <div :id="'reply-'+id" class="card mt-4" :class="isBest ? 'border-info' : ''">
+        <div class="card-header d-flex" :class="isBest ? 'text-info' : ''">
+                <a :href="'/profiles/' + reply.owner.name">
+                    {{ reply.owner.name }} ( {{ reply.owner.reputation}} XP )
+                </a>
+                said
+            <favorite :reply="reply" v-if="signedIn"></favorite>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
             <div v-if="editing">
                 <form @submit.prevent="update">
                     <div class="form-group">
                         <wysiwyg v-model="body"></wysiwyg>
                     </div>
-                    <button class="btn btn-xs btn-primary">Update</button>
-                    <button class="btn btn-xs btn-default" type="button" @click="cancel">Cancel</button>
+                    <button class="btn btn-sm btn-primary mr-2">Update</button>
+                    <button class="btn btn-sm btn-default" type="button" @click="cancel">Cancel</button>
                 </form>
             </div>
             <highlight v-else :content="body"></highlight>
         </div>
-        <div class="panel-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
+        <div class="card-footer d-flex" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
             <div v-if="authorize('owns', reply)">
-                <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
-                <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
+                <button class="btn btn-sm mr-2" @click="editing = true">Edit</button>
+                <button class="btn btn-sm btn-danger" @click="destroy">Delete</button>
             </div>
 
-            <button class="btn btn-xs btn-default ml-a" @click="markAsBest" v-if="authorize('owns', reply)">
+            <button class="btn btn-sm btn-default ml-auto" @click="markAsBest" v-if="authorize('owns', reply)">
                 Best Reply?
             </button>
         </div>

@@ -1,8 +1,8 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
+<div class="card mb-4">
+    <div class="card-header">
         {{ $heading }}
     </div>
-    <div class="panel-body">
-        {{ $body }}
+    <div class="card-body">
+        {!! $body !!}
     </div>
 </div>

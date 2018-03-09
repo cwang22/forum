@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <ais-index app-id="{{ config('scout.algolia.id') }}" api-key="{{ config('scout.algolia.key') }}"
                        query="{{ request('q') }}"

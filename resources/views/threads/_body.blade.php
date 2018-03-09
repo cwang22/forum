@@ -1,45 +1,35 @@
-<div class="panel panel-default" v-if="editing" v-cloak>
-    <div class="panel-heading">
-        <div class="level">
-            <span class="flex">
-                <input type="text" class="form-control" v-model="form.title">
-            </span>
-        </div>
+<div class="card" v-if="editing" v-cloak>
+    <div class="card-header">
+        <input type="text" class="form-control" v-model="form.title">
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div class="form-group">
             <wysiwyg v-model="form.body"></wysiwyg>
         </div>
     </div>
-    <div class="panel-footer">
-        <div class="level">
-            <button class="btn btn-xs btn-primary level-item" @click="update">Update</button>
-            <button class="btn btn-xs btn-default level-item" @click="cancel">Cancel</button>
+    <div class="card-footer d-flex">
+            <button class="btn btn-sm btn-primary mr-4" @click="update">Update</button>
+            <button class="btn btn-sm btn-default" @click="cancel">Cancel</button>
 
             @can('update', $thread)
-                <form action="{{ $thread->path() }}" method="POST" class="ml-a">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <button class="btn btn-xs btn-danger">Delete Thread</button>
-                </form>
+            <form action="{{ $thread->path() }}" method="POST" class="d-inline-block ml-auto">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button class="btn btn-sm btn-danger">Delete Thread</button>
+            </form>
             @endcan
-        </div>
     </div>
 </div>
-<div class="panel panel-default" v-else>
-    <div class="panel-heading">
-        <div class="level">
-            <span class="flex">
+<div class="card" v-else>
+    <div class="card-header">
                 <a href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->username }}</a> posted:
                 <span v-text="title"></span>
-            </span>
         </div>
-    </div>
-    <div class="panel-body">
+    <div class="card-body">
             <highlight :content="body"></highlight>
     </div>
-    <div class="panel-footer" v-if="authorize('owns', thread)">
-        <button class="btn btn-xs" @click="editing = true">Edit</button>
+    <div class="card-footer" v-if="authorize('owns', thread)">
+        <button class="btn btn-sm" @click="editing = true">Edit</button>
     </div>
 </div>
 

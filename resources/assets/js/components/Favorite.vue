@@ -16,7 +16,7 @@
 
         computed: {
             classes() {
-                return ['btn', this.active ? 'btn-primary' : 'btn-default']
+                return ['btn', 'btn-sm', 'ml-auto', this.active ? 'btn-primary' : 'btn-default']
             },
 
             endpoint() {

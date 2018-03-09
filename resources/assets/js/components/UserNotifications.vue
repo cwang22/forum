@@ -1,15 +1,9 @@
 <template>
-    <li class="dropdown" v-if="notifications.length">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-           aria-expanded="false">
-            <span class="glyphicon glyphicon-bell"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li v-for="notification in notifications">
-                <a :href="notification.data.link" v-text="notification.data.message"
-                   @click="markAsRead(notification)"></a>
-            </li>
-        </ul>
+    <li class="nav-item dropdown" v-if="notifications.length">
+        <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notifications</a>
+        <div class="dropdown-menu">
+            <a v-for="notification in notifications" :href="notification.data.link" class="dropdown-item" v-text="notification.data.message" @click="markAsRead(notification)"></a>
+        </div>
     </li>
 </template>
 <script>

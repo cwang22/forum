@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <div v-if="signedIn">
-            <h4>New Reply</h4>
-            <div class="form-group">
-                <wysiwyg name="body" v-model="body" placeholder="Have something to say?"></wysiwyg>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="post" class="btn pull-right" @click="addReply">
-            </div>
+    <div v-if="signedIn" class="mt-4">
+        <h4>New Reply</h4>
+        <div class="form-group">
+            <wysiwyg name="body" v-model="body" placeholder="Have something to say?"></wysiwyg>
+        </div>
+        <div class="form-group d-flex">
+            <input type="submit" value="post" class="btn ml-auto" @click="addReply">
         </div>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div class="level">
-            <img :src="avatar" width="50" height="50" class="mr-1">
+    <div >
+        <div class="d-flex mb-4">
+            <img :src="avatar" width="50" height="50" class="mr-2">
             <h1>
                 {{ user.username }}
                 <small>{{ user.reputation }} XP</small>

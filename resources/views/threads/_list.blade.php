@@ -1,41 +1,39 @@
 @forelse($threads as $thread)
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="level">
-                <div class="flex">
-                    <h4>
-                        <a href="{{ $thread->path() }}">
-                            @if($thread->pinned)
-                                <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-                            @endif
-                            @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
-                                <strong>
-                                    {{ $thread->title }}
-                                </strong>
-                            @else
-                                {{ $thread->title }}
-                            @endif
-                        </a>
-                    </h4>
-
-                    <h5>
-                        Posted By: <a
-                                href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->username }}</a>
-                    </h5>
-                </div>
-
-                <a href="{{ $thread->path() }}">
-                    {{ $thread->replies_count }} {{ str_plural('reply', $thread->replies_count) }}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="h4">
+                <a class="text-dark" href="{{ $thread->path() }}" >
+                    @if($thread->pinned)
+                        <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                    @endif
+                    @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
+                        <strong>
+                            {{ $thread->title }}
+                        </strong>
+                    @else
+                        {{ $thread->title }}
+                    @endif
                 </a>
-            </div>
-        </div>
-
-        <div class="panel-body">
+            </h3>
             <div class="body">{!! $thread->body !!}</div>
+
+            <a class="badge"></a>
         </div>
 
-        <div class="panel-footer">
-            {{ $thread->visits }}  {{ str_plural('visits', $thread->visits) }}
+        <div class="card-footer">
+            <span class="mr-2">
+                 Posted By: <a href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->username }}</a>
+            </span>
+
+            <span class="mr-2"  >
+                {{ $thread->visits }}  {{ str_plural('visits', $thread->visits) }}
+            </span>
+
+            <span >
+                <a href="{{ $thread->path() }}">
+                {{ $thread->replies_count }} {{ str_plural('reply', $thread->replies_count) }}
+            </a>
+            </span>
         </div>
     </div>
 @empty
