@@ -30,7 +30,7 @@
     <div class="panel-heading">
         <div class="level">
             <span class="flex">
-                <a href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->name }}</a> posted:
+                <a href="{{ route('profile', $thread->owner) }}">{{ $thread->owner->username }}</a> posted:
                 <span v-text="title"></span>
             </span>
         </div>
