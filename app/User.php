@@ -11,13 +11,11 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Attributes that cannot be mass assigned.
      *
      * @var array
      */
-    protected $fillable = [
-        'username', 'name', 'email', 'password', 'avatar_path', 'confirm_token', 'github_id'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -28,6 +26,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'confirmed' => 'boolean'
     ];

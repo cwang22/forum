@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Favorite extends Model
 {
     use RecordActivity;
+
     /**
-     * mass assignment protections.
+     * Attributes that cannot be mass assigned.
      *
      * @var array
      */

@@ -11,7 +11,7 @@ class Reply extends Model
     use Favoritable, RecordActivity;
 
     /**
-     * mass assignment protections.
+     * Attributes that cannot be mass assigned.
      *
      * @var array
      */

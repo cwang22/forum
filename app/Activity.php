@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    /**
+     * Attributes that cannot be mass assigned.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
     /**
@@ -27,6 +32,11 @@ class Activity extends Model
             });
     }
 
+    /**
+     * An activity has a subject.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function subject()
     {
         return $this->morphTo();

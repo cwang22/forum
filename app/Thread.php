@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\Builder;
 class Thread extends Model
 {
     use RecordActivity, Searchable;
+
     /**
-     * mass assignment protections.
+     * Attributes that cannot be mass assigned.
      *
      * @var array
      */
@@ -26,6 +27,9 @@ class Thread extends Model
      */
     protected $with = ['owner', 'channel'];
 
+    /**
+     * The accessors to append to the model's array form.
+     */
     protected $appends = ['isSubscribed'];
 
     protected $casts = [

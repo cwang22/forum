@@ -14,7 +14,7 @@ class Channel extends Model
     protected $guarded = [];
 
     /**
-     * Attributes to cast.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */

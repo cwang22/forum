@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ThreadSubscription extends Model
 {
     /**
-     * mass assignment protections.
+     * Attributes that cannot be mass assigned.
      *
      * @var array
      */
