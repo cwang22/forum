@@ -54,6 +54,7 @@ $factory->define(App\Thread::class, function ($faker) {
 
 $factory->state(App\Thread::class, 'from_existing_channels_and_users', function ($faker) {
     $title = $faker->sentence;
+
     return [
         'user_id' => function () {
             return \App\User::all()->random()->id;

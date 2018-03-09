@@ -1,7 +1,7 @@
 <?php
 
-use App\Channel;
 use App\Thread;
+use App\Channel;
 use Illuminate\Database\Seeder;
 
 class DataSeeder extends Seeder
@@ -27,11 +27,11 @@ class DataSeeder extends Seeder
     {
         collect(['PHP', 'Vue', 'Laravel Mix', 'Eloquent', 'Vuex'])
             ->each(function ($name) {
-            factory(Channel::class)->create([
+                factory(Channel::class)->create([
                 'name' => $name,
                 'slug' => strtolower($name)
             ]);
-        });
+            });
 
         return $this;
     }

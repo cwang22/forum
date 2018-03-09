@@ -119,8 +119,11 @@ class User extends Authenticatable
      */
     public function getAvatarPathAttribute($avatar)
     {
-    	if(preg_match('/^(?:[a-z]+:)?\\/\\//', $avatar)) return $avatar;
-    	return url($avatar ? 'storage/'.$avatar : 'images/avatars/default.png');
+        if (preg_match('/^(?:[a-z]+:)?\\/\\//', $avatar)) {
+            return $avatar;
+        }
+
+        return url($avatar ? 'storage/'.$avatar : 'images/avatars/default.png');
     }
 
     /**
