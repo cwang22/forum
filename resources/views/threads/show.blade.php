@@ -21,10 +21,10 @@
                     <p><span v-text="repliesCount"></span> comments left.</p>
 
                     <subscribe-button :subscribed="{{ json_encode($thread->isSubscribed) }}"></subscribe-button>
-                    <button class="btn btn-default" v-if="authorize('isAdmin')" @click="toggleLock"
+                    <button class="btn" :class="[locked ? 'btn-primary' : 'btn-default']" v-if="authorize('isAdmin')" @click="toggleLock"
                             v-text="locked ? 'Unlock' : 'Lock'">Lock
                     </button>
-                    <button class="btn btn-default" v-if="authorize('isAdmin')" @click="togglePin"
+                    <button class="btn btn-default" :class="[pinned ? 'btn-primary' : 'btn-default']" v-if="authorize('isAdmin')" @click="togglePin"
                             v-text="pinned ? 'Unpin' : 'Pin'">Lock
                     </button>
                 </div>

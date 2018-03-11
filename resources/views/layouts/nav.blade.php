@@ -12,7 +12,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse</a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu py-0">
                         <a class="dropdown-item" href="/threads">All Threads</a>
                         <a class="dropdown-item" href="/threads?popular=1">Popular Threads</a>
                         <a class="dropdown-item" href="/threads?unanswered=1">Unanswered Threads</a>
@@ -23,7 +23,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu py-0">
                         @foreach($channels as $channel)
                             <a class="dropdown-item" href="{{ '/threads/' . $channel->slug }}">{{$channel->name}}</a>
                         @endforeach
@@ -35,7 +35,7 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0" action="/threads/search">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
             </form>
 
             <ul class="navbar-nav">
@@ -47,7 +47,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
 
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu py-0">
                             <a class="dropdown-item" href="{{ route('profile', auth()->user()) }}">Profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"

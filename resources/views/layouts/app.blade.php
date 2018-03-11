@@ -12,7 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <!-- Scripts -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script>
         window.App = {!! json_encode([
             'csrfToken' => csrf_token(),

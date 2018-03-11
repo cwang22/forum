@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item dropdown" v-if="notifications.length">
-        <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notifications</a>
+        <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
         <div class="dropdown-menu">
             <a v-for="notification in notifications" :href="notification.data.link" class="dropdown-item" v-text="notification.data.message" @click="markAsRead(notification)"></a>
         </div>
