@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <link rel="stylesheet" href="/css/vendor/jquery.atwho.css">
+    <link rel="stylesheet" href="{{ asset("css/vendor/jquery.atwho.css") }}">
 @endsection
 
 @section('content')
@@ -21,11 +21,13 @@
                     <p><span v-text="repliesCount"></span> comments left.</p>
 
                     <subscribe-button :subscribed="{{ json_encode($thread->isSubscribed) }}"></subscribe-button>
-                    <button class="btn" :class="[locked ? 'btn-primary' : 'btn-default']" v-if="authorize('isAdmin')" @click="toggleLock"
-                            v-text="locked ? 'Unlock' : 'Lock'">Lock
+                    <button class="btn" :class="[locked ? 'btn-primary' : 'btn-default']" v-if="authorize('isAdmin')"
+                            @click="toggleLock"
+                            v-text="locked ? 'Unlock' : 'Lock'">
                     </button>
-                    <button class="btn btn-default" :class="[pinned ? 'btn-primary' : 'btn-default']" v-if="authorize('isAdmin')" @click="togglePin"
-                            v-text="pinned ? 'Unpin' : 'Pin'">Lock
+                    <button class="btn btn-default" :class="[pinned ? 'btn-primary' : 'btn-default']"
+                            v-if="authorize('isAdmin')" @click="togglePin"
+                            v-text="pinned ? 'Unpin' : 'Pin'">
                     </button>
                 </div>
             </div>

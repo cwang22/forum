@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Reply;
 use App\Thread;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class ThreadWasUpdated extends Notification
@@ -35,7 +36,7 @@ class ThreadWasUpdated extends Notification
      */
     public function via()
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -45,8 +46,18 @@ class ThreadWasUpdated extends Notification
     public function toArray()
     {
         return [
-            'message' => $this->reply->owner->name.' replied to '.$this->thread->title,
+            'message' => $this->reply->owner->username.' replied to '.$this->thread->title,
             'link' => $this->reply->path()
         ];
+    }
+
+    /**
+     * Get the broadcast representation of the notification.
+     *
+     * @return BroadcastMessage
+     */
+    public function toBroadcast()
+    {
+        return new BroadcastMessage($this->toArray());
     }
 }

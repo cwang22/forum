@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Reply;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class YouWereMentioned extends Notification
@@ -30,7 +31,7 @@ class YouWereMentioned extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
 //    /**
@@ -50,14 +51,23 @@ class YouWereMentioned extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray()
     {
         return [
             'message' => $this->reply->owner->name.' mentioned you in '.$this->reply->thread->title,
             'link' => $this->reply->thread->path()
         ];
+    }
+
+    /**
+     * Get the broadcast representation of the notification.
+     *
+     * @return BroadcastMessage
+     */
+    public function toBroadcast()
+    {
+        return new BroadcastMessage($this->toArray());
     }
 }
