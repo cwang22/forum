@@ -4,8 +4,8 @@ namespace App\Notifications;
 
 use App\Reply;
 use App\Thread;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class ThreadWasUpdated extends Notification
 {
