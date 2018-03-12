@@ -79,6 +79,7 @@ class LoginController extends Controller
 
         $user->fill([
             'name' => $githubUser->name,
+            'username' => $githubUser->nickname,
             'email' => $githubUser->email,
             'avatar_path' => $githubUser->avatar,
             'github_id' => $githubUser->id

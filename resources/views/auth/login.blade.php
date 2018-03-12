@@ -60,6 +60,15 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="divider my-4">
+                            <span>OR</span>
+                        </div>
+                        <div class="text-center">
+                            <a href="{{ route('login.github') }}" class="btn btn-outline-dark text-center">
+                                <i class="fab fa-github"></i>
+                                Sign In with Github
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
