@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
 use App\Channel;
-use App\Trending;
-use App\Rules\Recaptcha;
 use App\Filters\ThreadFilters;
+use App\Rules\Recaptcha;
+use App\Thread;
+use App\Trending;
 
 class ThreadsController extends Controller
 {
@@ -52,7 +52,7 @@ class ThreadsController extends Controller
             $threads->where('channel_id', $channel->id);
         }
 
-        return $threads->paginate(25);
+        return $threads->paginate(config('forum.pagination.thread'));
     }
 
     /**

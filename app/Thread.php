@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Laravel\Scout\Searchable;
-use App\Filters\ThreadFilters;
 use App\Events\ThreadReceivedNewReply;
-use Stevebauman\Purify\Facades\Purify;
-use Illuminate\Database\Eloquent\Model;
+use App\Filters\ThreadFilters;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
+use Stevebauman\Purify\Facades\Purify;
 
 class Thread extends Model
 {
@@ -109,13 +109,14 @@ class Thread extends Model
     /**
      * Add a reply to the thread.
      *
-     * @param Reply $reply
+     * @param array $array
      *
      * @return Model
      */
-    public function addReply($reply)
+    public function addReply($array)
     {
-        $reply = $this->replies()->create($reply);
+        /** @var Reply $reply */
+        $reply = $this->replies()->create($array);
 
         event(new ThreadReceivedNewReply($reply));
 
@@ -265,7 +266,7 @@ class Thread extends Model
      */
     public function hasBestReply()
     {
-        return ! is_null($this->best_reply_id);
+        return !is_null($this->best_reply_id);
     }
 
     /**

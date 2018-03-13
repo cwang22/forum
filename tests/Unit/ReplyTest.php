@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Reply;
+use App\Thread;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,5 +50,20 @@ class ReplyTest extends TestCase
     {
         $thread = make(Reply::class, ['body' => '<script>alert("hi")</script><p>this is good</p>']);
         $this->assertEquals('<p>this is good</p>', $thread->body);
+    }
+
+    /** @test */
+    public function it_generates_correct_paginated_path()
+    {
+        $thread = create(Thread::class);
+
+        $replies = create(Reply::class, ['thread_id' => $thread->id], 3);
+
+        config(['forum.pagination.reply' => 1]);
+
+        $this->assertEquals(
+            $thread->path() . '?page=3#reply-3',
+            $replies->last()->path()
+        );
     }
 }

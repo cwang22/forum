@@ -1,14 +1,14 @@
 <template>
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination" v-if="shouldPaginate">
-            <li v-show="prev">
-                <a href="#" aria-label="Previous" @click.prevent="page--">
+            <li class="page-item" v-show="prev">
+                <a href="#" aria-label="Previous" class="page-link" @click.prevent="page--">
                     <span aria-hidden="true">&laquo; Previous</span>
                 </a>
             </li>
 
-            <li v-show="next">
-                <a href="#" aria-label="Next" @click.prevent="page++">
+            <li class="page-item" v-show="next">
+                <a href="#" aria-label="Next" class="page-link" @click.prevent="page++">
                     <span aria-hidden="true">Next &raquo;</span>
                 </a>
             </li>
@@ -27,7 +27,7 @@
         },
         computed: {
             shouldPaginate() {
-                return !!this.prev || !!this.next
+                return this.prev || this.next
             }
         },
         watch: {
