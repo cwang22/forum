@@ -1,4 +1,5 @@
 <?php
+
 return [
     'pagination' => [
         'thread' => 25,

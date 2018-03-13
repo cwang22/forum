@@ -3,8 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
@@ -97,7 +97,7 @@ class Reply extends Model
         $count = $this->thread->replies()->pluck('id')->search($this->id) + 1;
         $page = ceil($count / $limit);
 
-        return $this->thread->path() . "?page=${page}#reply-{$this->id}";
+        return $this->thread->path()."?page=${page}#reply-{$this->id}";
     }
 
     /**
