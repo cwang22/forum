@@ -39,7 +39,7 @@ class Recaptcha implements Rule
             'remoteip' => request()->ip()
         ]);
 
-        if (!json_decode($response->getBody(), true)['success']) {
+        if (! json_decode($response->getBody(), true)['success']) {
             return false;
         }
 
